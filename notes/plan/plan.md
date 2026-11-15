@@ -42,6 +42,12 @@ stored.
   plan-dupecheck -- a number already spent on a DONE item is still
   taken; reusing one makes it mean two unrelated items. Named buckets
   and slug ids (bugs, kill-flow) sit beside the numbers.
+- **Frozen band.** Every item number is FROZEN: it is the item's
+  identity, not its location. It does not change when the item moves
+  buckets, and it is never reused -- a spent number stays spent
+  (notes/plan/spent-ids.txt). So a number does not always name the
+  bucket it sits in; a moved item leaves a marker behind (plan-tree.md
+  "Moved items").
 - **Dates.** Every item carries `[born YYYY-MM-DD]` when added and
   `[touched YYYY-MM-DD]` when materially edited. An EVAL item also
   carries `[parked YYYY-MM-DD]` -- if a parked date gets stale without

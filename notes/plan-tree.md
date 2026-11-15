@@ -19,34 +19,26 @@ a rule from here:
   the tooling lives, what is currently soft. It points here; it does
   not define.
 - notes/plan/plan.md is the PLAN's own top-matter -- numbering policy,
-  the frozen band, the reused-number ledger, the dated conventions.
+  the frozen band, the dated conventions.
   That content is the plan's, not the tree's.
 Anything that is a rule about tree STRUCTURE belongs here and is
 referenced from there. When either file contradicts this one, this one
-wins and the other is the bug. That precedence was earned: plan.md's
-shape bullet listed six of the eleven shapes for weeks, and README's
-tooling line six of the thirteen CLI modes, because the lists lived in
-three places. A spec whose first design rule is "metadata lives in ONE
+wins and the other is the bug. A list kept in three places drifts
+apart, and a spec whose first design rule is "metadata lives in ONE
 place, so nothing drifts" has to obey it about itself.
 
-NORMATIVE vs HISTORY. Everything down to "## The page" is normative --
-it tells you what to do. "## Migration and the switch" is inert
-history, kept because the switch is why several rules exist. Read a
-sentence in the imperative mood as a live instruction ONLY inside a
-normative section. Provenance inside a normative section -- a date, a
-Brian ruling, the failure that produced the rule -- is there because
-the rule does not survive without its why (anti-drew doctrine, not
-decoration). It is never the rule itself.
+NORMATIVE vs HISTORY. Every section of this file is normative -- it
+tells you what to do, and a sentence in the imperative mood is a live
+instruction. Provenance inside a section -- a date, a Brian ruling,
+the failure that produced the rule -- is there because the rule does
+not survive without its why (anti-drew doctrine, not decoration). It
+is never the rule itself.
 
-WHY A TREE. The plan was one 4797-line file (notes/the-plan.md) and
-got too big for Brian OR Claude to keep straight -- the anti-drew
-problem, stated plainly by Brian 2026-07-12: "i cant keep things
-strait no clue if you can i suspect not". The tree makes each item a
-small file, the dependency edges machine-readable, and the whole plan
-viewable as a graph -- dogfooding the matchgraph on the project's own
-roadmap. It went live 2026-07-19 (built as the notes/plan-proof spike,
-renamed at the switch); the flat files are retired in place as frozen
-history, never edited again.
+WHY A TREE. A plan kept as one big file gets too big for Brian OR
+Claude to keep straight -- the anti-drew problem, stated plainly by
+Brian 2026-07-12: "i cant keep things strait no clue if you can i
+suspect not". The tree makes each item a small file, the dependency
+edges machine-readable, and the whole plan viewable as a graph.
 
 ## Data model (design B)
 
@@ -55,16 +47,13 @@ Metadata lives in ONE place. No duplication, so nothing drifts.
 - notes/plan/plan.json -- the root manifest: the bucket list the page
   loads first. { "buckets": [ { id, title, dir } ] }. Two bucket forms,
   both FIRST-CLASS: NUMBERED (id is the frozen bucket number, dir is
-  NNNN-slug) and NAMED (id = dir = the slug). More named buckets are
-  coming; tooling-and-governance is the first, not an exception. A
-  named bucket gets ONE plan.json entry no matter how deep it nests --
-  never flatten its kinds into sibling top-level entries (the
-  2026-07-15 flail).
-- notes/plan/plan.md -- prose ONLY: the plan's top-matter (the "How to
-  use this file" preamble of the old flat the-plan.md, migrated at the
-  switch). The root-level analog of bucket.md, and the home of the
-  numbering policy, the frozen band, and the reused-number ledger --
-  facts about the plan's CONTENTS, never about the tree's form.
+  NNNN-slug) and NAMED (id = dir = the slug). A named bucket gets ONE
+  plan.json entry no matter how deep it nests -- never flatten its
+  kinds into sibling top-level entries.
+- notes/plan/plan.md -- prose ONLY: the plan's top-matter. The
+  root-level analog of bucket.md, and the home of the numbering
+  policy and the frozen band -- facts about the plan's CONTENTS, never
+  about the tree's form.
 - notes/plan/edges.json -- the ROOT EDGE INDEX [2026-07-18, Brian]:
   every needs/super edge in one file, one line per edge, { type, node,
   target } mirroring the entry on the owning node, sorted by node id.
@@ -86,18 +75,17 @@ Metadata lives in ONE place. No duplication, so nothing drifts.
   container carries subs and no own nodes; a leaf carries nodes.
   "shape" names the bucket's grammar (its own section below).
 - notes/plan/<bucket>/bucket.md -- prose ONLY: the bucket header's OWN
-  prose -- its intro paragraph and any asides (e.g. 0500's SKILLS note).
-  This is a full peer of an item .md, not an afterthought: the old flat
-  file carried real doctrine under a "## NNNN" header, above its items,
-  and that prose has no other home. A bucket with no header prose omits
-  both the file and the "body" field. WELDED RULE: when you migrate or
-  edit a bucket, the header prose goes here verbatim -- losing it is the
-  exact failure this line exists to stop (found 2026-07-12, Brian: "we
-  cant loose info", the 0500 intro + SKILLS aside had nowhere to live).
+  prose -- its intro paragraph and any asides. This is a full peer of
+  an item .md, not an afterthought: a bucket header can carry real
+  doctrine above its items, and that prose has no other home. A bucket
+  with no header prose omits both the file and the "body" field.
+  WELDED RULE: when you migrate or edit a bucket, the header prose goes
+  here verbatim -- losing it is the exact failure this line exists to
+  stop (found 2026-07-12, Brian: "we cant loose info").
 - notes/plan/<bucket>/<item>.md -- prose ONLY. No header block. Loaded
   on click. The heavy detail; kept out of the graph load. NAMING: a
-  numbered item is <id>-<slug>.md (10050-layer-creation-trigger.md); a
-  slugged item is <id>.md (collapse-revives-popped-tie.md). The node's
+  numbered item is <id>-<slug>.md (12100-export-button.md); a slugged
+  item is <id>.md (kill-flow.md). The node's
   "body" field must name this file EXACTLY, because that string is what
   the page fetches -- a mismatch is a 404 on click, and nothing in
   --check sees it yet.
@@ -147,12 +135,11 @@ frontier field ("NEVER STORE A COMPUTED FIELD", below).
 THE FIELD NAME MATCHES THE STATUS. A DONE node records under "done",
 a DEAD node under "dead", and the other pairing is an error --
 BADFIELD, checked. Ruled by Brian 2026-08-11 ("yea dead") on the
-evidence: 7 DEAD nodes were carrying "done", every one of them a
-retirement reading commit:N/A, and one of them was 10110, which he
-had ruled dead in the words "so the history dont lie" [2026-07-23].
-A field named done on a node that never shipped tells exactly that
-lie. The 7 were corrected in the ruling commit; there is no legacy
-spelling to tolerate. commit:N/A is correct when nothing shipped (a
+evidence: DEAD nodes were found carrying "done", each a retirement
+reading commit:N/A, on nodes he had ruled dead in the words "so the
+history dont lie" [2026-07-23]. A field named done on a node that
+never shipped tells exactly that lie. There is no legacy spelling to
+tolerate. commit:N/A is correct when nothing shipped (a
 retirement, a bug that stopped reproducing, a scope call), and the
 reason clause is the payload:
 
@@ -165,26 +152,26 @@ A DEAD node with no reason is a tombstone with a blank stone.
 
   {
     "bucket": "45000",
-    "title": "Drift detection on layout-end",
+    "title": "Export and import",
     "shape": "numbered",
     "body": "bucket.md",
     "nodes": [
       {
         "id": "45800",
-        "title": "Drift budget per layer",
+        "title": "Export to CSV",
         "type": "build",
         "status": "READY",
         "needs": ["10100"],
         "super": ["1042"],
-        "body": "45800-drift-budget.md"
+        "body": "45800-export-csv.md"
       },
       {
         "id": "45900",
-        "title": "Drift readout in the status line",
+        "title": "Import from CSV",
         "type": "build",
         "status": "DONE",
         "needs": [],
-        "body": "45900-drift-readout.md",
+        "body": "45900-import-csv.md",
         "done": "2026-07-09 commit:4a542fb"
       }
     ]
@@ -196,12 +183,10 @@ Copy the form, not the ids.
 ## Shape -- every bucket declares its grammar
 
 "shape" is the one stored word that says what belongs inside a bucket,
-so the next session extends the structure instead of re-guessing it
-(the T&G flail of 2026-07-15 was exactly that guess going wrong twice:
-per-dir tree, collapsed, flattened, rebuilt). It is stored, so it is
-CHECKED: plan-graph.js --check fails any bucket whose declared shape
-contradicts its contents -- that is what keeps a stored description
-from rotting into a lie, the same bargain as the index-audit.
+so the next session extends the structure instead of re-guessing it.
+It is stored, so it is CHECKED: plan-graph.js --check fails any
+bucket whose declared shape contradicts its contents -- that is what
+keeps a stored description from rotting into a lie.
 
 NAME COLLISION, said out loud because silence about it has already
 misled a reader: this "shape" is the BUCKET's grammar, a stored JSON
@@ -215,8 +200,8 @@ read for each other.
 The shapes in use:
 
 - numbered       leaf; nodes are plan items with frozen numeric ids
-                 (id = digits + optional letters: 1108b, 1032b, and a
-                 moved-marker's 1003m / 1032bm -- see "Moved items").
+                 (id = digits + optional letters: 0550b, and a
+                 moved-marker's 0550m / 0550bm -- see "Moved items").
                  No subs.
 - slugged        leaf; nodes are named items whose ids are short slugs
                  (a lowercase letter first, then letters/digits/
@@ -227,8 +212,8 @@ The shapes in use:
                  shape allowed to carry both -- for a bucket whose own
                  items head a nested cluster. Subs are ordinary
                  buckets with their own bucket.json, recursed like any
-                 sub. Born 2026-08-20: spacewars holds its ramblings
-                 node plus a physics sub-bucket, and neither leaf
+                 sub. Born 2026-08-20 for a bucket holding its
+                 ramblings node plus a sub-bucket, which neither leaf
                  (no subs) nor container (no own nodes) fit without
                  burying the node in an invented sub.
 - kinds          container; subs are kind sub-buckets (hooks, skills,
@@ -238,23 +223,23 @@ The shapes in use:
                  own nodes.
 - proposed-only  lanes variant whose single sub is proposed. Declared
                  where mirroring the implemented side would be wrong
-                 (the plan kind: mirroring the implemented plan inside
-                 the plan is the graph bomb).
+                 (e.g. a kind about the plan itself: mirroring the
+                 implemented plan inside the plan is the graph bomb).
 - implemented    leaf lane; nodes are what exists or shipped
                  (inventory entries, or DONE/PARTIAL work items).
 - proposed       leaf lane; nodes are proposals not yet built.
 - flight         container; subs are EXACTLY on-deck + wip + archive.
-                 No own nodes. The home for the old 0000 "massive change
-                 in flight" slot: one cross-cutting, many-session change
-                 held so a cold session can resume it. The three lanes
-                 are the lifecycle: on-deck -> wip -> archive.
+                 No own nodes. The home for a massive change in flight:
+                 one cross-cutting, many-session change held so a cold
+                 session can resume it. The three lanes are the
+                 lifecycle: on-deck -> wip -> archive.
 - on-deck        leaf; massive changes queued but not started, waiting
                  for the wip slot to free. Many allowed. This is where a
-                 would-be nested flight goes instead of nesting (see
-                 in-flight/bucket.md "no nested flights"). No subs.
+                 would-be nested flight goes instead of nesting (flights
+                 do not nest). No subs.
 - wip            leaf; holds AT MOST ONE node -- the single change
-                 currently in flight (the 0000 "one reserved slot"
-                 rule, now checked). No subs.
+                 currently in flight (the one-reserved-slot rule,
+                 checked). No subs.
 - archive        leaf; the completed/retired changes that graduated out
                  of wip, each a terminal (DONE/DEAD) node. No subs.
 
@@ -302,12 +287,12 @@ the index the moment the two disagree.
   ready frontier (a superseded predecessor is history, not a
   precondition) and never fires the DEAD advisory. --check
   dangling-validates it exactly like needs; --lineage prints the chains.
-- Why a whole edge kind for lineage, not just prose: the compliance
-  chain compliance-audit -> 0300 -> 1110 lived only in scattered prose,
-  so answering "is there historical 0300 work" once cost a four-file
-  grep. That is not just the tokens -- the lookup noise crowds the
-  context window and degrades every later judgment in the session (the
-  anti-drew tax: tokens, context, and build quality are one axis).
+- Why a whole edge kind for lineage, not just prose: a chain that
+  lives only in scattered prose makes answering "is there historical
+  work on this" a multi-file grep. That is not just the tokens -- the
+  lookup noise crowds the context window and degrades every later
+  judgment in the session (the anti-drew tax: tokens, context, and
+  build quality are one axis).
   Encoding lineage as an edge pays it back: the next session traces the
   subgraph instead of re-deriving it. Reach for super whenever a node
   MOVED, was RENAMED, SUPERSEDED, or SPLIT from another -- the "was
@@ -329,9 +314,8 @@ The vocabulary:
 - build      work that ships code.
 - bug        a defect. The bugs bucket is all of these.
 - doc        a durable document about something OTHER than what is
-             being built here: a decoder (docs/dear-liza,
-             docs/third_rock), a doctrine file (anti-drew.md), a
-             format spec (Claude/*-format.txt).
+             being built here: a decoder (docs/dear-liza), a doctrine
+             file (notes/anti-drew.md), a format spec.
 - tooling    plan/skill/index apparatus rather than product code.
 
 SET type ON EVERY NEW NODE. There is no default for anything written
@@ -345,9 +329,8 @@ apparatus (tooling)?
 doc VERSUS spec, because the first wording of the doc line read "a
 document that is not a spec (a decoder, a format spec)" and offered a
 format spec as an example of a not-spec -- a contradiction inside
-eight words, written by the same session that wrote the type field
-and caught only when Brian asked "what about docs?" and it had to be
-applied to ten real nodes. The distinction is not formality, it is
+eight words, caught only when Brian asked "what about docs?" and it
+had to be applied to real nodes. The distinction is not formality, it is
 SUBJECT. A spec decides what gets built HERE and is answerable to
 this codebase; a doc describes something else -- a story that decodes
 how the project operates, a convention for writing a file, how to
@@ -375,7 +358,7 @@ hand-edited a bucket.json without the skill.
 ### ramblings -- the one type with no terminus
 
 A ramblings node holds what Brian said when he described something,
-sorted by Claude at drain time. Three properties, and every one of
+sorted by Claude when it is filed. Three properties, and every one of
 them is load-bearing:
 
 - IT IS NOT WORK, so it has no done-condition and never appears on
@@ -391,12 +374,11 @@ them is load-bearing:
   substrate for that -- see "## Done", a completed item stays in its
   bucket and there is no archive -- so the 4-year guarantee needs no
   new machinery, only a node kind allowed to use it.
-- IT IS SORTED, NOT DISTILLED AND NOT VERBATIM. Claude adds ORDER at
-  drain time and nothing else: nothing thrown away, nothing decided,
-  nothing refined. That is store-everything-analyze-later (the ERMA
-  rule) one level up from the data. The spec is
-  the filter, and being the filter is precisely why the spec cannot
-  double as the record.
+- IT IS SORTED, NOT DISTILLED AND NOT VERBATIM. Claude adds ORDER when
+  filing it and nothing else: nothing thrown away, nothing decided,
+  nothing refined. That is store-everything-analyze-later, applied to
+  Brian's own words. The spec is the filter, and being the filter is
+  precisely why the spec cannot double as the record.
 
 And it is the plan's ONBOARDING surface, which is the payoff the
 other two do not cover. Anti-repetition serves someone who knows to
@@ -411,20 +393,17 @@ substitutes: a gist says what a file IS, only the description says
 what the thing is FOR. This is why --specless reports "no spec, no
 ramblings" and not just the spec half.
 
-This is also the destination /scratch-drain never had. A pad is a
-WAYPOINT, not a home (Claude/scratch-pad-format.txt); drain graduates
-it into "a real notes/*.md spec or plan items", and every artifact on
-a pad has a home in that list EXCEPT Brian's own description --
-rulings become items, design becomes a spec, his words are neither. A
-drain that would drop them is a drain nobody runs. type:ramblings is
-the home, which is what makes a drain completable.
+It is also the home a talked-out idea otherwise lacks when it
+graduates. Every artifact of the talk has a home EXCEPT Brian's own
+description -- rulings become items, design becomes a spec, his words
+are neither. A graduation that would drop them is one nobody runs.
+type:ramblings is the home, which is what makes it completable.
 
 Named for Carl Spackler in Caddyshack, muttering his way to a plan --
 Brian's word, ruled after he was offered a tidier one and declined it
 ("i have a burglar in the projects why cant i have bill murry mutting
 to himself wile ploting the death of an anamatronic gopher"). Same
-house style as matchburglar, Third Rock, Dear Liza: the name carries
-the model.
+house style as Dear Liza: the name carries the model.
 
 ## Status -- where a node is in its life
 
@@ -436,14 +415,13 @@ means one thing:
   SPEC     described but not committed to. See the note below.
   DRAFT    content accruing and open for change -- being written,
            not committed to. Not buildable, not settled. Added
-           2026-08-13 (Brian, typing 10155: "mark it spec and
+           2026-08-13 (Brian, typing a spec node: "mark it spec and
            draft"); natural life-stage for a type:spec node. Whether
            DRAFT is also the migration word for status-SPEC (the
            unchosen word, note below) is NOT ruled -- do not migrate
            SPEC nodes on this entry.
   EVAL     waiting on Brian's decision before work proceeds -- a design
-           call, a scope choice, a filed bug not yet ruled. The whole
-           reason 0100-eval-due exists.
+           call, a scope choice, a filed bug not yet ruled.
   PARK     deliberately set down, with no decision pending.
   DEFER    deliberately not now, conditional on something later.
   MOVED    the node is a signpost, not work -- a moved marker. See
@@ -463,9 +441,9 @@ UNENFORCED -- say so plainly until it is fixed. --check validates the
 shape vocabulary and the type vocabulary, but for status it checks only
 that the field is NON-EMPTY. There is no status vocabulary constant in
 plan-graph.js, so any string is currently a legal status. That gap is
-not academic: it is exactly how MOVED came to sit on dozens of nodes
-while this section listed eight words that did not include it, for
-weeks, with --check clean the whole time. The spec's own bargain --
+not academic: it is exactly how MOVED once sat on many nodes while
+this section's list did not include it, with --check clean the whole
+time. The spec's own bargain --
 "it is stored, so it is CHECKED" -- was never struck for the field with
 the most values, on the most nodes, driving the one report Brian reads
 most. OWED, and this spec mandates the code change: --check gains a
@@ -499,35 +477,30 @@ it cannot go stale.
 
 A completed item stays in its bucket. bucket.json gives it status DONE
 plus a done field ("2026-07-09 commit:4a542fb"). There is no separate
-archive -- the-plan-done.md folds in this way. Git history holds the
-rest.
+archive. Git history holds the rest.
 
 An abandoned/superseded/tombstoned item stays in its bucket too, with
 status DEAD and the same date+reason record under its OWN field name,
 dead ("2026-06-07 commit:N/A retired:superseded") -- same shape, never
 the same key. "The same field" is what this sentence used to say, and
-that one word put "done" on 7 dead nodes before it was caught. DEAD is
+that one word put "done" on dead nodes before it was caught. DEAD is
 how a not-shipped item is recorded without lying that it was DONE --
-the MOVED tombstones (e.g. 30000 -> 1002) and
-the UNFEASIBLE / retired / subsumed entries in the old the-plan-done.md
-are DEAD, not DONE. Wrong items that never carried a number are still
+a tombstone, or an item ruled UNFEASIBLE, retired, or subsumed, is
+DEAD, not DONE. Wrong items that never carried a number are still
 just REMOVED (plan.md); DEAD is for a numbered node that died.
 
-Reused numbers: the old flat file spent a few numbers twice on
-unrelated items. The FORM of the fix is a letter suffix -- the
+Reused numbers: a number spent twice on unrelated items is a
+collision. The FORM of the fix is a letter suffix -- the
 live-or-earliest entry keeps the bare number, each other gets a letter
-(1032b, 1150b, the same convention as 1120a). Whether a given collision
-was split at all is a RULING, not a rule: 1002 looked like three
-collisions and was ruled one concept, folded into a single node with
-the facet-notes in its body. Every case, and its ruling, is recorded in
-plan.md's "Reused numbers" ledger -- read the ledger for what happened;
-do not re-derive it from this paragraph. (This spec said "1002a,
-1002b" as its worked example until 2026-08-10, ids that were ruled out
-of existence and that no reader could ever find.)
+(0550b). Whether a given collision is split at all is a RULING, not a
+rule: an apparent collision can be ruled one concept, folded into a
+single node with the facet-notes in its body. Record every case, and
+its ruling, in a "Reused numbers" section of plan.md (none yet) -- read
+it for what happened; do not re-derive it from this paragraph.
 
 ## Moved items -- leave a marker node
 
-A frozen-band number (0000-1199) is identity, not location: the item
+A frozen-band number is identity, not location: the item
 keeps its number when it changes buckets (plan.md "Frozen band"), so the
 number no longer tells you which bucket to open. Browsing by number
 therefore fails for a relocated item -- you look under the bucket the
@@ -536,23 +509,23 @@ went. That is a dead end a cold reader (or Brian) hits with no recourse.
 
 WELDED RULE: when you relocate a frozen-band item to a non-obvious
 bucket, leave a one-line moved-breadcrumb in the bucket.md WHERE THE
-NUMBER WOULD SEND YOU -- "1001 -> 22000-calibration (DONE, closed by
-cmfit)" -- pointing at the real home, in the same commit as the move.
-Point at the TREE bucket it lives in now, NOT at the-plan-done.md: a
-breadcrumb that names the old flat archive just relocates the dead end.
-The 30000-moved tombstone is the whole-bucket version of this; the
-breadcrumb is the per-item version.
+NUMBER WOULD SEND YOU -- "0550 -> 12000-sync (DONE)" -- pointing at
+the real home, in the same commit as the move. Point at the TREE
+bucket it lives in now, NOT at any file outside the tree: a breadcrumb
+that names some other archive just relocates the dead end. A
+tombstone bucket (one left where a whole bucket used to be) is the
+whole-bucket version of this; the breadcrumb is the per-item version.
 
 This is the human half, and it should not depend on remembering to leave
 it while hot -- hence a welded rule, not a habit. The machine half is
 the finder resolving "where is <number>" across every bucket regardless
-of where it landed (queued for the plan skills rewrite), so the
+of where it landed (/plan-find's exact-id lookup), so the
 browse-by-number reflex just works and the breadcrumb is the backstop.
 
 MOVED-MARKER NODE (supersedes the prose breadcrumb) [2026-07-18, Brian
 "make it nodes not text neither one of us reads"]: a relocated
 frozen-band item ALSO carries a marker NODE in its number-implied bucket
--- id = <real-id> + "m" (1003m for 1003, 1032bm for 1032b; the numbered
+-- id = <real-id> + "m" (0550m for 0550, 0550bm for 0550b; the numbered
 shape allows the trailing letters), status MOVED, title "MOVED -> <home
 bucket> (<real title>)", and a super edge to the real node. So browsing
 the number lands on a real node whose one edge is the way home, not on
@@ -582,8 +555,8 @@ caught, which would have licensed exactly that edge.
 The prose destination-list breadcrumb is then redundant and comes out.
 A one-line prose pointer stays only for the cases a marker cannot
 cover -- a renumbered item whose old number is no longer any node at
-all -- and it names the TREE bucket, never the-plan-done.md. The
-30000-moved tombstone remains the whole-bucket version.
+all -- and it names the TREE bucket, never a file outside the tree. A
+tombstone bucket remains the whole-bucket version.
 
 ## Maintaining the tree
 
@@ -597,8 +570,8 @@ THE WELD. A plan change is never one file. After any change, ALL of
 these are true in ONE commit, or none of them are:
 - the node's fields in its bucket.json
 - its prose .md, if it has one
-- the dir index.cld (index-audit tracks .json too, so a new
-  bucket.json or plan.json needs its entry, same as any file)
+- the dir index.cld (a new bucket.json or plan.json needs its entry,
+  same as any file)
 - one edges.json line per needs/super added or removed
 - the moved-marker node, if a frozen-band number relocated
 - `node plan-graph.js --check` clean, run from notes/plan/
@@ -622,19 +595,16 @@ changed. A new node goes at the end of "nodes".
 
 ### Adding a bucket
 
-The one procedure that is in no skill, and the one the 2026-07-15 T&G
-flail got wrong twice by guessing (per-dir tree, collapsed,
-flattened, rebuilt). The "shape" field was one answer to that flail;
+The one procedure that is in no skill, and the one most easily got
+wrong by guessing. The "shape" field is one answer to that guess;
 this is the other half of it.
 
 1. NUMBERED or NAMED. Numbered when the cluster is a roadmap area
    wanting a place in the numeric ordering: id is a frozen number,
    dir is NNNN-slug, numbering policy in plan.md. NAMED when it is a
    standing concern with no position on a roadmap: id = dir = the
-   slug (in-flight, tooling-and-governance, bugs,
-   data-usage-coverage, ui). Both forms are FIRST CLASS -- named is
-   not the exception the original spec read as, and named buckets
-   have outgrown that framing.
+   slug (bugs). Both forms are FIRST CLASS -- named is not an
+   exception to numbered.
 2. /plan-dupecheck the id. A number spent on a DONE item is still
    spent; ids are globally unique across the WHOLE tree.
 3. Create the dir and its bucket.json: bucket, title, shape, and
@@ -647,7 +617,7 @@ this is the other half of it.
    both the file and the "body" field, or neither.
 6. ONE plan.json entry { id, title, dir }, no matter how deep the
    bucket nests. A named bucket's sub-kinds are NEVER flattened into
-   sibling top-level entries; that was the flail. The buckets array
+   sibling top-level entries. The buckets array
    is ORDERED and the order is EDITORIAL -- not alphabetical, not
    numeric -- so put the entry where it reads best among its
    neighbours. plan-graph.js reads only "dir"; "id" and "title" are
@@ -677,7 +647,7 @@ ANSWERS -- what is the state of the plan
   coverage report for the semantic edge audit; with an id, only the
   edges touching it (either end), the titled to/from lookup
 - --outline [n]  the plan collapsed to n levels (default 2; 1 = the
-  bucket headers) -- the 0610 shape view, driven by plan-find's depth
+  bucket headers) -- the outline view, driven by plan-find's depth
   argument
 - --types [type]  the type census: every node grouped by type, UNTYPED
   last as a bare count. With a type, just that type's members. This is
@@ -705,8 +675,8 @@ GATES -- exit 1 on findings. Run --check before any plan commit.
   one node), plus --check-edges and --liza in full. It also prints the
   non-failing DEAD ADVISORY: a buildable node still needing a DEAD
   target, which usually wants repointing or dropping but is not drift
-  the way a dangling edge is. This is the index-audit analog that
-  keeps the hand-maintained headers honest.
+  the way a dangling edge is. This is what keeps the hand-maintained
+  bucket records honest.
 
   WHAT --check DOES NOT CHECK, so you must: the STATUS vocabulary (see
   "## Status" -- any string passes today), and whether a node's "body"
@@ -733,9 +703,8 @@ verdict and never an auto-fix; the ruling is Brian's.
   contradict it), GONE (it names a file that is not on disk), MOVED
   (a named file was committed to after the item's own body, with the
   gap in days; a file.js:NNN line ref is flagged too). Settled nodes
-  are skipped. Born 2026-07-26 after four items in one sitting turned
-  out to describe a world that had moved (Brian: "i think everything
-  did").
+  are skipped. Born 2026-07-26 after several items in one sitting
+  turned out to describe a world that had moved.
 
 WHY THE SMELLS ARE THEIR OWN KIND, and why --mine had to be invented:
 a rotted node BREAKS NO RULE. Its status is set, its edges resolve,
@@ -758,12 +727,11 @@ FIRST LINE OF THE OUTPUT, not the exit code.
 
 - html/plan.html + html/plan.css -- standalone full-tab extension page.
 - lib/plan-boot.js -- the controller on the vendored Cytoscape + fcose.
-  DATA_ROOT (#osDataRoot) points at the tree (notes/plan since the
-  switch).
-- Reached from a "Open Plan Graph" button in html/popup.html (wired
-  like the offline-graph button: tabs.create on getURL).
+  DATA_ROOT (#osDataRoot) points at the tree (notes/plan).
+- Reached from the extension's toolbar button (background.js:
+  tabs.create on getURL).
 - Cluster (fcose) is the ONLY layout. Flow (breadthfirst) was retired
-  2026-07-16 (63bc26e): it laid the disconnected buckets in one huge
+  2026-07-16: it laid the disconnected buckets in one huge
   row, every open re-fit the whole graph, and deep levels pinned zoom
   at the floor as unclickable specks -- the "renders for Claude, not
   for Brian" bug.
@@ -794,29 +762,3 @@ FIRST LINE OF THE OUTPUT, not the exit code.
   colour / arrowhead direction) so a dependency never reads as lineage
   -- is a deferred page concern, parked as a likely Fable pass
   [2026-07-18, Brian]. Until then, trace lineage with --lineage.
-
-## Migration and the switch (DONE 2026-07-19)
-
-The conversion was built IN notes/plan-proof, bucket by bucket, on
-build branches, with the-plan.md frozen except its 0000 resume item.
-The SWITCH landed 2026-07-19 on Brian's call ("yea switch it"), with
-the edge audit explicitly DECOUPLED from the gate (Brian's ruling,
-same day): the semantic edge pass (edge-audit) drains post-switch via
-/plan-edge-audit sittings instead of blocking the cutover. What the
-switch did:
-1. renamed notes/plan-proof -> notes/plan
-2. flipped DATA_ROOT in lib/plan-boot.js
-3. dropped the flat-file half of plan-find / plan-dupecheck (dual-read
-   during the conversion) and the plan-write-back flat exception;
-   repointed every plan-* skill's paths at notes/plan
-4. retired the-plan.md + the-plan-done.md (+ their .cld) IN PLACE with
-   banners -- kept as frozen history at Brian's request, never deleted,
-   never edited again
-5. updated the CLAUDE.md reading list and the notes/ indexes
-
-Pre-switch parity was checked mechanically: every item id in the flat
-files resolves to a tree node, a moved-marker (<id>m), a reused-number
-node, or a bucket dir; the only non-node ids are 0000 (its home is
-in-flight/wip) and 0500 (now the tooling-and-governance named bucket).
-Resume state for the conversion lived in the-plan.md 0000 until the
-switch; its log tail now lives on the in-flight archive node.
