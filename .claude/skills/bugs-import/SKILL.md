@@ -2,6 +2,15 @@
 name: bugs-import
 description: Fetch this repo's open GitHub issues and file each new one as a bug node in the plan tree's bugs bucket -- slug id, READY, provenance line back to the issue. Reach for it on "pull the github issues", "file the issues in bugs", "import the bug reports". Takes an issue number to import just that one; with no argument, imports every open issue not already filed.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js, the hygiene checker
+<PLAN>/scripts/compliance/check.sh. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: bugs reported through GitHub issues otherwise sit outside the
 plan tree, where the anti-drew memory never sees them. This skill
 drains the issue list into the bugs bucket (plan/bugs/,
@@ -10,7 +19,7 @@ shape slugged) so every defect lives as one kind of node, findable by
 
 Procedure:
 
-1. Read plan/plan-tree.md FIRST -- write ops cite the spec
+1. Read <PLAN>/plan-tree.md FIRST -- write ops cite the spec
    (skills.md): the slugged shape, the welded index rules, and
    stored-vs-computed status.
 
@@ -49,8 +58,8 @@ Procedure:
    - the bugs/index.cld entry.
 
 5. VERIFY, then commit:
-   `node plan/plan-graph.js --check plan` and
-   `scripts/compliance/check.sh plan/bugs` both clean.
+   `node <PLAN>/plan/plan-graph.js --check plan` and
+   `<PLAN>/scripts/compliance/check.sh plan/bugs` both clean.
    The commit message names the issue numbers imported. Report the
    tally inline: filed / skipped as already-filed.
 

@@ -2,6 +2,14 @@
 name: plan-write-back
 description: Write a change into the plan tree -- add an item, edit one, change its status, mark it DONE/DEAD, move it between buckets, or add/remove a needs/super edge -- with every welded index edit made in the same commit. Reach for it the moment plan content changes: "add a plan item", "mark N done", "move N to bucket B", "N now needs M". Takes the change in plain words; with no argument, prints one-line usage.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: the write side of the plan skills (0530's TODO half). A plan
 change in the tree is never one file: the node lives in bucket.json,
 the prose in the item .md, the entry in the dir index.cld, every edge
@@ -11,7 +19,7 @@ so no half of a change survives alone.
 
 Procedure:
 
-1. Read plan/plan-tree.md FIRST -- the data model, shape grammar, and
+1. Read <PLAN>/plan-tree.md FIRST -- the data model, shape grammar, and
    welded rules. Write ops cite the spec, they do not paraphrase it
    (skills.md). Locate the target via /plan-find if needed.
 
@@ -59,12 +67,12 @@ Procedure:
    where the number would send you (plan-tree.md welded rule).
 
 6. VERIFY before committing:
-   `node plan/plan-graph.js --check plan`
+   `node <PLAN>/plan/plan-graph.js --check plan`
    must run clean -- drift, shapes, edge index, bad types, and Liza
    cycles. A new needs that closes a loop is a hole in the bucket
    (docs/dear-liza/): take it back to Brian for the axe instead of
    committing it.
 
-Scope guard: writes ONLY under plan/ -- bucket.json, item
-.md, bucket.md, index.cld, edges.json. Never a computed field. Report, do not swallow, any check
-failure (skills.md: a skill failure is a bug).
+Scope guard: writes ONLY under plan/ -- bucket.json, item .md,
+bucket.md, index.cld, edges.json. Never a computed field. Report, do
+not swallow, any check failure (skills.md: a skill failure is a bug).

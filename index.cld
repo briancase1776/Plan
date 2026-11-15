@@ -6,6 +6,7 @@ F LICENCE.TXT       MIT licence the file headers point to
 F NOTICE            Third-party software bundled (Cytoscape, fcose, cose-base, layout-base)
 F CLAUDE.md         Working rules for a Claude Code session here: talk first, no popups, branches, compliance, indexes, the plan skills
 F README.md         Front door: what is here, how to load the page, what is known as copied
+F plan-tree.md      The spec: the only authority on a plan tree's structure -- data model, shapes, statuses, types, welded rules
 F manifest.json     Chrome extension manifest (MV3): the plan graph page as an extension
 F background.js     Service worker: the toolbar button opens html/plan.html
 F index.cld         This index
@@ -16,5 +17,5 @@ D html/             The plan graph page
 D lib/              The page's controller, error framework and graph libraries
 D licence/          Full licence texts of the bundled libraries
 D notes/           The skills guide (skills.md) and anti-drew.md
-D plan/            The plan itself, its reader/checker and its spec (plan-tree.md)
+D plan/            The plan itself and its reader/checker (plan-graph.js)
 D scripts/          The compliance checker

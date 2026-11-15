@@ -2,6 +2,14 @@
 name: plan-edge-index-audit-partial
 description: Check that the plan-tree edge index you are about to commit still tells the truth -- compare edges.json against the edges on the nodes, scoped to the STAGED diff. Reach for it before committing when you added, removed, or repointed a needs/super edge in any bucket.json, or added/moved/killed a node that carries edges. With no argument, audits the current staged diff.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: every needs/super edge lives on its node in bucket.json, and
 the root index plan/edges.json duplicates it so readers see
 the whole edge set without walking the tree. That copy only works if it
@@ -18,7 +26,7 @@ Procedure:
 
 2. Run the engine (it reads the working tree; in the normal case the
    staged content and working copy agree -- if they differ, say so):
-   `node plan/plan-graph.js --check-edges plan`.
+   `node <PLAN>/plan/plan-graph.js --check-edges plan`.
 
 3. Read the findings:
    - MISSING from edges.json: an edge on a node that the index does not

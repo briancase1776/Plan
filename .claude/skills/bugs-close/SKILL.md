@@ -2,6 +2,15 @@
 name: bugs-close
 description: Close a fixed bug BOTH places it lives -- mark its bugs-bucket node DONE with the fix commit, and close its GitHub issue with a comment pointing at the fix. Reach for it on "close the bug", "that bug is fixed", "close issue N", "mark <slug> done" -- at the moment a fix has landed and been verified. Takes a bug slug or issue number; with no argument, prints usage plus any bug nodes whose fix looks landed but unclosed.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js, the hygiene checker
+<PLAN>/scripts/compliance/check.sh. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: bugs-import walks GitHub issues INTO the plan tree; nothing
 walked the loop back out, so a fixed bug needed two hand-edits (the
 node, the issue) and either half could be forgotten -- a half-closed
@@ -19,7 +28,7 @@ Procedure:
    closes.
 
 
-1. Read plan/plan-tree.md FIRST -- write ops cite the spec
+1. Read <PLAN>/plan-tree.md FIRST -- write ops cite the spec
    (skills.md): the DONE status + done field format
    ("YYYY-MM-DD commit:<hash>"), the welded index rules.
 
@@ -47,8 +56,8 @@ Procedure:
    - the bug's .md gains a terse FIXED footer: date, fix commit,
      one-line what-changed, the verify.
    - bugs/index.cld: the entry's gist gains the fixed marker.
-   - VERIFY node plan/plan-graph.js --check plan and
-     scripts/compliance/check.sh plan/bugs both clean, then
+   - VERIFY node <PLAN>/plan/plan-graph.js --check plan and
+     <PLAN>/scripts/compliance/check.sh plan/bugs both clean, then
      commit; message names the slug and issue number.
 
 5. GITHUB SIDE (only if the node carries an issue provenance line --

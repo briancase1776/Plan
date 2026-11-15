@@ -2,6 +2,14 @@
 name: plan-edge-index-audit-full
 description: Full audit of the plan-tree edge index -- are any edges missing from edges.json, and does edges.json claim edges no node carries? Compares the WHOLE tree against the index, both directions. Reach for it on "is the edge index current", after bulk plan edits or a bucket restructure, and before any edge-audit sitting. No argument needed.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: plan/edges.json duplicates every needs/super edge
 stored on the nodes so the page and a cold session read the whole
 dependency map from one file. A duplicate is only trustworthy audited:
@@ -12,7 +20,7 @@ to the staged diff).
 Procedure:
 
 1. Run the engine:
-   `node plan/plan-graph.js --check-edges plan`.
+   `node <PLAN>/plan/plan-graph.js --check-edges plan`.
    (The same comparison also runs inside --check, the whole-manifest
    drift audit; use --check when you want shapes and dangling edges
    swept in the same pass.)

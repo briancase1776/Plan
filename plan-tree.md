@@ -574,7 +574,7 @@ these are true in ONE commit, or none of them are:
   same as any file)
 - one edges.json line per needs/super added or removed
 - the moved-marker node, if a frozen-band number relocated
-- `node plan-graph.js --check` clean, run from plan/
+- `plan-graph.js --check` clean on the plan root
 
 The runbook for an ITEM change -- new node, status, edge, move -- is
 /plan-write-back. It is the driver; this file is what it cites. Do
@@ -628,9 +628,10 @@ this is the other half of it.
 
 ## The reader / checker
 
-plan/plan-graph.js -- node, read-only, RUN FROM plan/.
+plan/plan-graph.js in the Plan repo -- node, read-only. Run it from
+the root of the repo whose plan it reads, naming that plan's dir.
 The mode is argv[2] and defaults to --ready; the root is argv[3] and
-defaults to "." (hence run-from-the-dir), except for the modes taking
+defaults to "." (the plan dir itself), except for the modes taking
 a filter, where argv[3] is the filter and the root slides to argv[4].
 It never writes; every report is derived on every read.
 

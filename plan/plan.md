@@ -8,7 +8,8 @@ This file is the ROOT PROSE of the plan tree -- the tree analog of a
 bucket.md, holding the plan's own top-matter. The bucket list itself
 lives in plan.json (loaded first by the page); each bucket's node graph
 lives in <bucket>/bucket.json; each item's prose in <bucket>/<item>.md.
-See plan/plan-tree.md for the governing spec.
+See plan-tree.md, at the root of the Plan repo, for the governing
+spec.
 
 "What's next": `node plan/plan-graph.js --ready plan` is
 the ready frontier, `--blocked` is what waits and on what, `--check`
@@ -29,7 +30,7 @@ stored.
 - **Shape.** Every bucket.json declares its grammar in a "shape" field
   -- what belongs inside, stated so the next session extends the
   bucket instead of re-guessing its structure. Vocabulary and rules:
-  plan/plan-tree.md. plan-graph.js --check fails a bucket whose
+  plan-tree.md. plan-graph.js --check fails a bucket whose
   contents contradict its declared shape.
 - **Decision-blocked work** waits as an EVAL item until the decision
   lands.

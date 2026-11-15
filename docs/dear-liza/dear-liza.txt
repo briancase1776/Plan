@@ -56,7 +56,7 @@ structure you only catch by tracing the whole thing.
 WHY IT MATTERS IN THIS PROJECT
 ------------------------------------------------------------------------
 
-The plan tree (plan/, spec plan/plan-tree.md) computes
+The plan tree (plan/, spec plan-tree.md) computes
 everything from needs edges: BLOCKED and the READY frontier are
 derived, never stored. That design kills stale markers -- and it has
 exactly one silent failure mode, and it is this song.

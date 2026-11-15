@@ -2,6 +2,14 @@
 name: plan-edge-index-find
 description: Find the dependency edges to and from a plan-tree node through the root edge index (plan/edges.json) -- who needs it, what it needs, what its super lineage is -- without walking every bucket.json. Reach for it on "what depends on X", "what does X need", "what blocks X", "what continues X" for plan items. Takes an exact node id; with no argument, prints the whole dependency map.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: the edges live ONCE, on the owning node in its bucket.json, so
 knowing every edge that touches a node used to mean traversing the whole
 tree. The root edge index plan/edges.json is the dependency
@@ -13,7 +21,7 @@ N continues T (lineage, non-blocking).
 Procedure:
 
 1. NO ARGUMENT ($ARGUMENTS empty) -- the whole map:
-   `node plan/plan-graph.js --edges plan`
+   `node <PLAN>/plan/plan-graph.js --edges plan`
    prints every edge with both endpoints' status and title. Summarize
    count by type; do not editorialize each edge.
 
@@ -23,7 +31,7 @@ Procedure:
    - OUT (entries whose node is <id>): what <id> needs / continues.
    - IN (entries whose target is <id>): what needs / continues <id>.
    When statuses and titles matter (usually), get them from
-   `node plan/plan-graph.js --edges <id> plan`
+   `node <PLAN>/plan/plan-graph.js --edges <id> plan`
    which prints only the edges touching <id>.
 
 3. NO MATCH: an existing node with no edges is a NORMAL answer --

@@ -1,8 +1,8 @@
 # plan -- the live plan
 
-This tree IS the plan. Full rules: plan/plan-tree.md (the only
-authority on the tree's structure; this file points there and does not
-define).
+This tree IS the plan. Full rules: plan-tree.md, at the root of the
+Plan repo (the only authority on the tree's structure; this file
+points there and does not define).
 
 DATA MODEL
   - plan.json (root): the bucket list the page loads first.

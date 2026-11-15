@@ -28,7 +28,7 @@ const cp   = require('child_process');
 const aBUILDABLE = ['READY', 'PARTIAL'];
 const aTERMINAL  = ['DONE', 'DEAD'];
 
-/* The node TYPE vocabulary (plan/plan-tree.md "Type -- what a node
+/* The node TYPE vocabulary (plan-tree.md "Type -- what a node
    IS"). A new type is added THERE and here in the same commit, the
    same bargain as shape. '' (absent) is legal and means untyped: 309
    nodes predate the field and fill in on contact, never in a batch.
@@ -326,7 +326,7 @@ function fCheck(oItems) {
 /***********************************************************************//**
  * @brief Why a bucket's contents contradict its declared shape.
  * @details The shape vocabulary and what each one permits are spec'd in
- *   plan/plan-tree.md ("Shape -- every bucket declares its grammar").
+ *   plan-tree.md ("Shape -- every bucket declares its grammar").
  *   A new shape is added there and here in the same commit.
  * @param {object} oBucket - Bucket record from fWalkBucket.
  * @returns {string} The reason, or "" when the shape holds.
@@ -794,9 +794,38 @@ function fOsPathDate(osRootAbs, osAbs, oCache) {
   return osResult;
 }
 
+/** Top-level directories that hold documentation, not code (aCodeDirs).
+ *  An item naming a file there is cross-referencing prose. */
+const kaDocDirs = ['notes', 'docs'];
+
+/***********************************************************************//**
+ * @brief The directories of the checked repo whose files an item's
+ *   prose may name as code.
+ * @details Read off the repo being checked, never written in, so the
+ *   reader works on any repo's plan: every top-level directory except
+ *   dot-directories, the documentation dirs (kaDocDirs), and the one
+ *   holding the plan being read -- its own files (edges.json, a
+ *   bucket.json) change on every plan commit, so an item naming one
+ *   says nothing about its premise.
+ * @param {string} osRepoAbs - The repo root (the git work tree).
+ * @param {string} osPlanRoot - The plan root being read.
+ * @returns {string[]} Directory names, in readdir order.
+ **************************************************************************/
+function aCodeDirs(osRepoAbs, osPlanRoot) {
+  const osPlanTop = path.relative(osRepoAbs, path.resolve(osPlanRoot))
+    .split(path.sep)[0];
+  const aResult = fs.readdirSync(osRepoAbs, { withFileTypes: true })
+    .filter(function (oEnt) {
+      return oEnt.isDirectory() && oEnt.name.charAt(0) !== '.'
+        && kaDocDirs.indexOf(oEnt.name) < 0 && oEnt.name !== osPlanTop;
+    })
+    .map(function (oEnt) { return oEnt.name; });
+  return aResult;
+}
+
 /***********************************************************************//**
  * @brief Every source file an item's prose names.
- * @details Only CODE directories count (kaCodeDirs). An item naming a
+ * @details Only CODE directories count (aCodeDirs). An item naming a
  *   notes/ or docs/ file is cross-referencing documentation, which moves
  *   for its own reasons and says nothing about whether this item's
  *   premise still holds. A ":NNN" line suffix is kept as a flag, not as
@@ -805,17 +834,17 @@ function fOsPathDate(osRootAbs, osAbs, oCache) {
  *   moved it), so they are worth calling out even when the file itself
  *   has not moved since the item was written.
  * @param {string} osText - The item body .md contents.
+ * @param {string[]} aDirs - The code directories, from aCodeDirs.
  * @returns {object[]} [{ osPath, bLine }], de-duplicated by path.
  **************************************************************************/
-/** The directories of THIS project whose files an item's prose may
- *  name as code (aCodeRefs). A project using the plan system sets its
- *  own. */
-const kaCodeDirs = ['lib', 'scripts', 'html'];
-
-function aCodeRefs(osText) {
+function aCodeRefs(osText, aDirs) {
   const aResult = [];
   const oSeen   = {};
-  const oRe = new RegExp('\\b((?:' + kaCodeDirs.join('|') + ')'
+  if (aDirs.length === 0) return aResult;
+  const osAlt = aDirs.map(function (osDir) {
+    return osDir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }).join('|');
+  const oRe = new RegExp('\\b((?:' + osAlt + ')'
     + '\\/[A-Za-z0-9_.\\/-]*\\.(?:js|json|css|html|sh))(:[0-9]+)?', 'g');
   let aHit = oRe.exec(osText);
   while (aHit !== null) {
@@ -874,9 +903,10 @@ function aCodeRefs(osText) {
  *   history costs nothing. Void: it prints, it does not return.
  * @param {object} oItems - Item map from fBuild.
  * @param {string} osFilter - Only this id ('' = every buildable item).
+ * @param {string} osRoot - The plan root being read (aCodeDirs).
  * @returns {void}
  **************************************************************************/
-function fPrintMines(oItems, osFilter) {
+function fPrintMines(oItems, osFilter, osRoot) {
   console.log('PLAN MINES (ungrounded or overtaken items --'
     + ' a smell queue, not a verdict):');
   const osRootAbs = fOsGitRoot();
@@ -885,6 +915,7 @@ function fPrintMines(oItems, osFilter) {
     return;
   }
   const oCache = {};
+  const aDirs  = aCodeDirs(osRootAbs, osRoot);
   Object.keys(oItems).sort().forEach(function (osId) {
     const oIt = oItems[osId];
     if (osFilter !== '' && osId !== osFilter) return;
@@ -896,7 +927,7 @@ function fPrintMines(oItems, osFilter) {
     if (osItemDate === '') return;
     const aFound = [];
     const osText = fs.readFileSync(osBodyAbs, 'utf8');
-    const aRefs  = aCodeRefs(osText);
+    const aRefs  = aCodeRefs(osText, aDirs);
     const nMeat  = osText.split('\n').filter(function (osLine) {
       return osLine.trim() !== '' && osLine.charAt(0) !== '#';
     }).length;
@@ -988,7 +1019,7 @@ function fMain() {
   } else if (osMode === '--prose') {
     fPrintProseRefs(oItems, osFilter);
   } else if (osMode === '--mine') {
-    fPrintMines(oItems, osFilter);
+    fPrintMines(oItems, osFilter, osRoot);
   } else if (osMode === '--lineage') {
     fPrintLineage(oItems);
   } else if (osMode === '--blocked') {

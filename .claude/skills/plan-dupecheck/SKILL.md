@@ -2,6 +2,14 @@
 name: plan-dupecheck
 description: Check whether a plan item id -- a number or a slug -- is free before assigning it. Greps the plan tree's bucket.jsons and the list of numbers this plan has spent (plan/spent-ids.txt -- history still spends numbers); reports FREE or TAKEN with the owning line. Given a bucket, proposes the next free number by that bucket's step. Ids are globally unique across the WHOLE tree, so this is the guard at the moment of naming.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: stop plan-id reuse. A number spent twice ends up meaning two
 unrelated items. The tree raises the stakes: node ids are globally
 unique across every bucket (a needs edge names its target by id alone

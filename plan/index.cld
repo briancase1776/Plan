@@ -5,7 +5,6 @@ F README.md         Plan front door: data model, tooling, soft spots
 F plan.json         Root manifest: the bucket list
 F plan.md           Root prose: the plan's top-matter (lifecycle, numbering, dates)
 F edges.json        Root edge index: every needs/super edge, kept in the same commit as its bucket.json
-F plan-tree.md      The spec: the only authority on this tree's structure -- data model, shapes, statuses, types, welded rules
 F plan-graph.js     Reader/checker: ready, blocked, edges, suspect, prose, outline, --liza, --check
 F plan-graph.js.cld Symbol index for plan-graph.js
 F spent-ids.txt     Every number this plan has spent (none yet)

@@ -4,7 +4,7 @@
 
 A plan kept as a tree of buckets and drawn as a graph: what is to be
 built, what waits on what, and what already shipped. The tree lives in
-`plan/`; `plan/plan-tree.md` is the only authority on its
+`plan/`; `plan-tree.md` is the only authority on its
 structure; `plan/plan-graph.js` reads and checks it; the plan
 graph page (`html/plan.html`) draws it, as this repo's own Chrome
 extension. The plan skills in `.claude/skills/` are how a session

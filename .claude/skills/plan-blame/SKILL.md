@@ -2,6 +2,14 @@
 name: plan-blame
 description: Trace a plan item's full history -- the commits that created, moved, and finished it, across the tree and its git history -- and present it as a blame (chronological, with hashes) plus a summary of what the item was and what shipped. Reach for it on "blame <id>", "when did N land", "history of N", "summarize old item N". Takes an exact item id; with no argument, prints one-line usage.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: an item's history is scattered -- the tree node (bucket.json +
 .md), the commits that created, moved, re-edged and finished it, and
 the shipping commit its done field names. Answering "where did this
@@ -26,15 +34,19 @@ Procedure:
    `git fetch --unshallow origin` before trusting any "oldest" commit
    -- a shallow clone makes old history look as if it began at the
    clone's cut. Then:
-   - the tree: `git log --oneline --reverse -S'<id>' --
-     plan/` (creation, moves, edge changes, the DONE flip);
-     read an old version with `git show <hash>:<path>`;
+   - the tree: `git log --oneline --reverse -S'<id>'` (creation,
+     moves, edge changes, the DONE flip) over the WHOLE history, no
+     path limit: a path limit does not follow a renamed plan dir, so
+     every commit from before a move would drop out. A hit that
+     touches no plan file is still history (the fix itself, a
+     session note, an older plan file's name) -- keep it. Read an old
+     version with `git show <hash>:<path>`;
    - the done field's own commit when it names one:
      `git show --stat <hash>` -- that is the shipping commit.
    Long trails: keep first, last, and the status-changing commits;
    say how many were elided.
 
-3. EDGES: `node plan/plan-graph.js --edges <id>
+3. EDGES: `node <PLAN>/plan/plan-graph.js --edges <id>
    plan` -- what it blocked, what continued it (super
    lineage is often the moved/renamed story).
 

@@ -2,21 +2,29 @@
 name: plan-find
 description: Find a plan item from a paraphrase, an exact number or slug id, or "what's next" -- in the plan tree (plan/). Also the outline view -- "depth 2" lists the plan collapsed to N levels. With no argument, lists the READY items ("what's next"). An item's history is /plan-blame's job.
 ---
+Paths: <PLAN> is the Plan checkout this skill was loaded from --
+`realpath <base>/../../..`, where <base> is this skill's base
+directory. The spec is <PLAN>/plan-tree.md, the reader
+<PLAN>/plan/plan-graph.js. The plan worked on is plan/ in the
+repo the session is working in; run every command below from that
+repo's root. No repo name or checkout path is written into this
+skill.
+
 Purpose: answer "what's next" or "where's the item about X" without
 reading the plan. The plan lives in ONE substrate: the tree at
-plan/ (spec plan/plan-tree.md). An item's history is
+plan/ (spec <PLAN>/plan-tree.md). An item's history is
 /plan-blame's job (git history).
 
 Procedure:
 
 1. NO ARGUMENT -- "what's next":
-   `node plan/plan-graph.js --ready plan`
+   `node <PLAN>/plan/plan-graph.js --ready plan`
    -- the COMPUTED frontier (buildable, no open blocker). Present it
    grouped by bucket. Surface a BLOCK/EVAL item only if it is the real
    center of gravity.
 
 2. DEPTH / OUTLINE ($ARGUMENTS like "depth 2" or "outline 3"):
-   `node plan/plan-graph.js --outline <n> plan`
+   `node <PLAN>/plan/plan-graph.js --outline <n> plan`
    -- the plan's shape to n levels (1 = bucket headers, 2 adds items).
 
 3. EXACT id (a number like 0550, or a slug like kill-flow):

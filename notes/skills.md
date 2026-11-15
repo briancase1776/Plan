@@ -53,7 +53,7 @@ domain     .cld file                      format spec
 --------   ----------------------------   ------------------------------
 index      index.cld (per dir)            dir-index-format.txt (CLD-DirIndex)
 filename   <file>.cld (per source file)   file-index-format.txt (CLD-FileIndex)
-plan       plan/ (bucket.json,      plan/plan-tree.md
+plan       plan/ (bucket.json,      plan-tree.md (Plan root)
            edges.json, index.cld)
 ```
 
@@ -184,7 +184,7 @@ Three parts, in order:
 2. Procedure -- numbered, imperative steps: the runbook. Branch on
    $ARGUMENTS (no-arg default / exact key / vague paraphrase, per Args).
    When the skill writes a formatted file, read that format spec FIRST
-   and do not reinvent it (plan-write-back reads plan/plan-tree.md
+   and do not reinvent it (plan-write-back reads plan-tree.md
    before writing).
 3. Scope guard -- a closing line stating what the skill may and may NOT
    touch: read-only, or writes only to <path>. See the next rule.
@@ -204,7 +204,7 @@ operation:
   writing eight.
 - WRITE side (the write ops) and AUDIT -- CITE the spec. These
   PRODUCE or VERIFY the exact format, so a paraphrase drifts and emits
-  wrong bytes. plan-write-back reads plan/plan-tree.md before
+  wrong bytes. plan-write-back reads plan-tree.md before
   writing; a mechanical audit engine encodes the format rules exactly
   (a paraphrase there produces false findings). Shorthand is not safe
   where format correctness is load-bearing.
@@ -278,6 +278,13 @@ directory's): one `D <name>/` line per skill with a one-line
 gist. The standing index rule applies -- add, rename, or remove a skill
 and update `.claude/skills/index.cld` in the SAME commit. A companion
 script that ships with a skill lives in that skill's own directory.
+
+A plan skill works on the plan/ of whatever repo the session is in,
+and finds the plan system -- the spec, the reader, the checker -- in
+the Plan checkout it was loaded from: `realpath <base>/../../..`, its
+own base directory three levels up, written <PLAN> in the commands.
+Never a repo name or a checkout path written into a skill; each
+SKILL.md opens with the same Paths paragraph saying so.
 
 ### Skill vs hook [settled]
 

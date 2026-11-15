@@ -17,13 +17,16 @@ with an EMPTY plan.
   edge. It starts with one empty bucket, `bugs`.
 - `CLAUDE.md` -- the working rules for a Claude Code session here;
   `notes/anti-drew.md` -- why the indexes and the spec exist.
-- `plan/plan-tree.md` -- the spec: data model, bucket shapes, statuses
+- `plan-tree.md` -- the spec: data model, bucket shapes, statuses
   and types, the welded rules. `docs/dear-liza/dear-liza.txt` -- why a
   needs cycle silently hides its items. `notes/skills.md` -- how the
   skills are written.
 - `.claude/skills/` -- the plan skills for Claude Code: plan-find,
   plan-write-back, plan-blame, plan-dupecheck, plan-edge-audit, the
   three plan-edge-index skills, bugs-import and bugs-close.
+  They work on the `plan/` of whatever repo the session is in,
+  and find the spec, the reader and the checker in this
+  checkout through their own base directory.
 - `html/plan.html`, `lib/plan-boot.js` -- the plan graph page, with the
   Cytoscape and fcose libraries it draws with (`lib/`, licences in
   `licence/` and `NOTICE`).
