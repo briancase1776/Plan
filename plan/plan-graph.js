@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* notes/plan/plan-graph.js
+/* plan/plan-graph.js
  * @brief Reader/checker for the plan tree. The graph data lives in
  *   per-bucket manifests (<dir>/bucket.json: node id, title, status,
  *   the needs edges, and the super (provenance) edges), hand-maintained
@@ -28,7 +28,7 @@ const cp   = require('child_process');
 const aBUILDABLE = ['READY', 'PARTIAL'];
 const aTERMINAL  = ['DONE', 'DEAD'];
 
-/* The node TYPE vocabulary (notes/plan-tree.md "Type -- what a node
+/* The node TYPE vocabulary (plan/plan-tree.md "Type -- what a node
    IS"). A new type is added THERE and here in the same commit, the
    same bargain as shape. '' (absent) is legal and means untyped: 309
    nodes predate the field and fill in on contact, never in a batch.
@@ -326,7 +326,7 @@ function fCheck(oItems) {
 /***********************************************************************//**
  * @brief Why a bucket's contents contradict its declared shape.
  * @details The shape vocabulary and what each one permits are spec'd in
- *   notes/plan-tree.md ("Shape -- every bucket declares its grammar").
+ *   plan/plan-tree.md ("Shape -- every bucket declares its grammar").
  *   A new shape is added there and here in the same commit.
  * @param {object} oBucket - Bucket record from fWalkBucket.
  * @returns {string} The reason, or "" when the shape holds.

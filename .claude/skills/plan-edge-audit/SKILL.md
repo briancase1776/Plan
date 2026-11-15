@@ -11,13 +11,13 @@ Brian's eye rules.
 Procedure:
 
 1. Pre-filter -- the likely-wrong queue first:
-   `node notes/plan/plan-graph.js --suspect notes/plan`.
+   `node plan/plan-graph.js --suspect plan`.
    A needs whose target is already terminal (DONE/DEAD) smells of
    provenance recorded as dependency: it may want to be a super edge,
    or plain prose. It is a SMELL, not a verdict.
 
 1b. The reverse pre-filter -- edges possibly left IN prose:
-   `node notes/plan/plan-graph.js --prose notes/plan`
+   `node plan/plan-graph.js --prose plan`
    (optional node id before the root narrows it). A body .md naming
    another node's id with no edge either direction may be a missing
    needs, a missing super, or a soft mention that is fine as prose --
@@ -26,7 +26,7 @@ Procedure:
    not in one sitting.
 
 2. Coverage -- the whole edge set, titled:
-   `node notes/plan/plan-graph.js --edges notes/plan`.
+   `node plan/plan-graph.js --edges plan`.
    Every edge gets ruled eventually; the suspects just go first.
 
 3. Present the queue to Brian in plain text (NEVER AskUserQuestion --

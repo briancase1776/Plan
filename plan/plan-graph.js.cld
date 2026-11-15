@@ -1,4 +1,4 @@
-FILE notes/plan/plan-graph.js
+FILE plan/plan-graph.js
 F fWalkBucket      Load one bucket dir and its subs into the item map (recurses)
 F fBuild           Load every bucket manifest via plan.json into the item map
 F fIsSettled       Is an item terminal (DONE/DEAD) -- what clears a blocker

@@ -13,8 +13,8 @@ Procedure:
 
 1. RESOLVE the id, tree first (the moved-item rule -- a number no
    longer names its bucket):
-   `grep -rn '"id": "<id>"' --include=bucket.json notes/plan/`,
-   then `grep -n "^<id> " notes/plan/spent-ids.txt` -- a number this
+   `grep -rn '"id": "<id>"' --include=bucket.json plan/`,
+   then `grep -n "^<id> " plan/spent-ids.txt` -- a number this
    plan spent that the tree no longer carries shows up only there.
    Read the node: type (ABSENT is legal on an untyped node -- blame
    reads history, so it must tolerate untyped nodes and never report
@@ -27,15 +27,15 @@ Procedure:
    -- a shallow clone makes old history look as if it began at the
    clone's cut. Then:
    - the tree: `git log --oneline --reverse -S'<id>' --
-     notes/plan/` (creation, moves, edge changes, the DONE flip);
+     plan/` (creation, moves, edge changes, the DONE flip);
      read an old version with `git show <hash>:<path>`;
    - the done field's own commit when it names one:
      `git show --stat <hash>` -- that is the shipping commit.
    Long trails: keep first, last, and the status-changing commits;
    say how many were elided.
 
-3. EDGES: `node notes/plan/plan-graph.js --edges <id>
-   notes/plan` -- what it blocked, what continued it (super
+3. EDGES: `node plan/plan-graph.js --edges <id>
+   plan` -- what it blocked, what continued it (super
    lineage is often the moved/renamed story).
 
 4. PRESENT, in order: one-line WHAT (id, title, status, home bucket);

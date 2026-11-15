@@ -15,5 +15,6 @@ D docs/             Longer documents (dear-liza)
 D html/             The plan graph page
 D lib/              The page's controller, error framework and graph libraries
 D licence/          Full licence texts of the bundled libraries
-D notes/            The plan, its spec and the skills guide
+D notes/           The skills guide (skills.md) and anti-drew.md
+D plan/            The plan itself, its reader/checker and its spec (plan-tree.md)
 D scripts/          The compliance checker

@@ -1,4 +1,4 @@
-# notes/plan/spent-ids.txt
+# plan/spent-ids.txt
 #
 # Every item and bucket number this plan has used and retired, one line
 # per use, numbers only. A number once spent is never handed out again

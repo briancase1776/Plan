@@ -4,8 +4,8 @@
 
 A plan kept as a tree of buckets and drawn as a graph: what is to be
 built, what waits on what, and what already shipped. The tree lives in
-`notes/plan/`; `notes/plan-tree.md` is the only authority on its
-structure; `notes/plan/plan-graph.js` reads and checks it; the plan
+`plan/`; `plan/plan-tree.md` is the only authority on its
+structure; `plan/plan-graph.js` reads and checks it; the plan
 graph page (`html/plan.html`) draws it, as this repo's own Chrome
 extension. The plan skills in `.claude/skills/` are how a session
 touches it.
@@ -54,7 +54,7 @@ not just time.
 ## The plan
 
 The plan is the roadmap: what is to be built, what is blocked on what,
-and what already shipped. It lives at `notes/plan/` as a directory
+and what already shipped. It lives at `plan/` as a directory
 tree. Do not read it whole -- use the skills: `/plan-find` for what's
 next or where an item lives, `/plan-write-back` for any change,
 `/plan-blame` for what shipped and when.

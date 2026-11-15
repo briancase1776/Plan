@@ -1,6 +1,6 @@
-# Plan Tree -- the governing spec for notes/plan/
+# Plan Tree -- the governing spec for plan/
 
-notes/plan/ IS the live plan. This file is the ONLY authority on its
+plan/ IS the live plan. This file is the ONLY authority on its
 structure: the field names, the vocabularies, the rules, and the
 checks. Read it before you maintain the tree, and WRITE FROM IT --
 every rule a maintainer needs is here, in the reference sections, not
@@ -15,10 +15,10 @@ are the interface; this file is what they cite.
 
 AUTHORITY. Two other files describe this tree, and NEITHER may restate
 a rule from here:
-- notes/plan/README.md is the front door -- what the tree is, where
+- plan/README.md is the front door -- what the tree is, where
   the tooling lives, what is currently soft. It points here; it does
   not define.
-- notes/plan/plan.md is the PLAN's own top-matter -- numbering policy,
+- plan/plan.md is the PLAN's own top-matter -- numbering policy,
   the frozen band, the dated conventions.
   That content is the plan's, not the tree's.
 Anything that is a rule about tree STRUCTURE belongs here and is
@@ -44,17 +44,17 @@ edges machine-readable, and the whole plan viewable as a graph.
 
 Metadata lives in ONE place. No duplication, so nothing drifts.
 
-- notes/plan/plan.json -- the root manifest: the bucket list the page
+- plan/plan.json -- the root manifest: the bucket list the page
   loads first. { "buckets": [ { id, title, dir } ] }. Two bucket forms,
   both FIRST-CLASS: NUMBERED (id is the frozen bucket number, dir is
   NNNN-slug) and NAMED (id = dir = the slug). A named bucket gets ONE
   plan.json entry no matter how deep it nests -- never flatten its
   kinds into sibling top-level entries.
-- notes/plan/plan.md -- prose ONLY: the plan's top-matter. The
+- plan/plan.md -- prose ONLY: the plan's top-matter. The
   root-level analog of bucket.md, and the home of the numbering
   policy and the frozen band -- facts about the plan's CONTENTS, never
   about the tree's form.
-- notes/plan/edges.json -- the ROOT EDGE INDEX [2026-07-18, Brian]:
+- plan/edges.json -- the ROOT EDGE INDEX [2026-07-18, Brian]:
   every needs/super edge in one file, one line per edge, { type, node,
   target } mirroring the entry on the owning node, sorted by node id.
   It exists because the whole edge set is otherwise unknowable without
@@ -65,7 +65,7 @@ Metadata lives in ONE place. No duplication, so nothing drifts.
   index.cld: hand-edited in the SAME commit as the bucket.json edit,
   compared by plan-graph.js --check-edges (also inside --check), gated
   on demand by plan-edge-index-audit-partial / -full.
-- notes/plan/<bucket>/bucket.json -- the graph data for one cluster,
+- plan/<bucket>/bucket.json -- the graph data for one cluster,
   and what the page fetches to pop a bucket open. Every field of the
   bucket record and of the node record is specified in "### Field
   reference" below; that reference is normative and this bullet is not
@@ -74,7 +74,7 @@ Metadata lives in ONE place. No duplication, so nothing drifts.
   child dir with its own bucket.json, and both readers recurse it. A
   container carries subs and no own nodes; a leaf carries nodes.
   "shape" names the bucket's grammar (its own section below).
-- notes/plan/<bucket>/bucket.md -- prose ONLY: the bucket header's OWN
+- plan/<bucket>/bucket.md -- prose ONLY: the bucket header's OWN
   prose -- its intro paragraph and any asides. This is a full peer of
   an item .md, not an afterthought: a bucket header can carry real
   doctrine above its items, and that prose has no other home. A bucket
@@ -82,14 +82,14 @@ Metadata lives in ONE place. No duplication, so nothing drifts.
   WELDED RULE: when you migrate or edit a bucket, the header prose goes
   here verbatim -- losing it is the exact failure this line exists to
   stop (found 2026-07-12, Brian: "we cant loose info").
-- notes/plan/<bucket>/<item>.md -- prose ONLY. No header block. Loaded
+- plan/<bucket>/<item>.md -- prose ONLY. No header block. Loaded
   on click. The heavy detail; kept out of the graph load. NAMING: a
   numbered item is <id>-<slug>.md (12100-export-button.md); a slugged
   item is <id>.md (kill-flow.md). The node's
   "body" field must name this file EXACTLY, because that string is what
   the page fetches -- a mismatch is a 404 on click, and nothing in
   --check sees it yet.
-- notes/plan/<bucket>/index.cld -- the directory index, same as every
+- plan/<bucket>/index.cld -- the directory index, same as every
   other index.cld. Lists bucket.json + bucket.md + each item .md.
 
 Why bucket-level (not per-node) json: one file per node would be
@@ -574,7 +574,7 @@ these are true in ONE commit, or none of them are:
   same as any file)
 - one edges.json line per needs/super added or removed
 - the moved-marker node, if a frozen-band number relocated
-- `node plan-graph.js --check` clean, run from notes/plan/
+- `node plan-graph.js --check` clean, run from plan/
 
 The runbook for an ITEM change -- new node, status, edge, move -- is
 /plan-write-back. It is the driver; this file is what it cites. Do
@@ -628,7 +628,7 @@ this is the other half of it.
 
 ## The reader / checker
 
-notes/plan/plan-graph.js -- node, read-only, RUN FROM notes/plan/.
+plan/plan-graph.js -- node, read-only, RUN FROM plan/.
 The mode is argv[2] and defaults to --ready; the root is argv[3] and
 defaults to "." (hence run-from-the-dir), except for the modes taking
 a filter, where argv[3] is the filter and the root slides to argv[4].
@@ -727,7 +727,7 @@ FIRST LINE OF THE OUTPUT, not the exit code.
 
 - html/plan.html + html/plan.css -- standalone full-tab extension page.
 - lib/plan-boot.js -- the controller on the vendored Cytoscape + fcose.
-  DATA_ROOT (#osDataRoot) points at the tree (notes/plan).
+  DATA_ROOT (#osDataRoot) points at the tree (plan).
 - Reached from the extension's toolbar button (background.js:
   tabs.create on getURL).
 - Cluster (fcose) is the ONLY layout. Flow (breadthfirst) was retired

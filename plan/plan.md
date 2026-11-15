@@ -8,9 +8,9 @@ This file is the ROOT PROSE of the plan tree -- the tree analog of a
 bucket.md, holding the plan's own top-matter. The bucket list itself
 lives in plan.json (loaded first by the page); each bucket's node graph
 lives in <bucket>/bucket.json; each item's prose in <bucket>/<item>.md.
-See notes/plan-tree.md for the governing spec.
+See plan/plan-tree.md for the governing spec.
 
-"What's next": `node notes/plan/plan-graph.js --ready notes/plan` is
+"What's next": `node plan/plan-graph.js --ready plan` is
 the ready frontier, `--blocked` is what waits and on what, `--check`
 audits drift. blocked/ready are COMPUTED from the needs edges, never
 stored.
@@ -29,7 +29,7 @@ stored.
 - **Shape.** Every bucket.json declares its grammar in a "shape" field
   -- what belongs inside, stated so the next session extends the
   bucket instead of re-guessing its structure. Vocabulary and rules:
-  notes/plan-tree.md. plan-graph.js --check fails a bucket whose
+  plan/plan-tree.md. plan-graph.js --check fails a bucket whose
   contents contradict its declared shape.
 - **Decision-blocked work** waits as an EVAL item until the decision
   lands.
@@ -45,7 +45,7 @@ stored.
 - **Frozen band.** Every item number is FROZEN: it is the item's
   identity, not its location. It does not change when the item moves
   buckets, and it is never reused -- a spent number stays spent
-  (notes/plan/spent-ids.txt). So a number does not always name the
+  (plan/spent-ids.txt). So a number does not always name the
   bucket it sits in; a moved item leaves a marker behind (plan-tree.md
   "Moved items").
 - **Dates.** Every item carries `[born YYYY-MM-DD]` when added and

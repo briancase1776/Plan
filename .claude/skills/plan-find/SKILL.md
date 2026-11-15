@@ -1,33 +1,33 @@
 ---
 name: plan-find
-description: Find a plan item from a paraphrase, an exact number or slug id, or "what's next" -- in the plan tree (notes/plan/). Also the outline view -- "depth 2" lists the plan collapsed to N levels. With no argument, lists the READY items ("what's next"). An item's history is /plan-blame's job.
+description: Find a plan item from a paraphrase, an exact number or slug id, or "what's next" -- in the plan tree (plan/). Also the outline view -- "depth 2" lists the plan collapsed to N levels. With no argument, lists the READY items ("what's next"). An item's history is /plan-blame's job.
 ---
 Purpose: answer "what's next" or "where's the item about X" without
 reading the plan. The plan lives in ONE substrate: the tree at
-notes/plan/ (spec notes/plan-tree.md). An item's history is
+plan/ (spec plan/plan-tree.md). An item's history is
 /plan-blame's job (git history).
 
 Procedure:
 
 1. NO ARGUMENT -- "what's next":
-   `node notes/plan/plan-graph.js --ready notes/plan`
+   `node plan/plan-graph.js --ready plan`
    -- the COMPUTED frontier (buildable, no open blocker). Present it
    grouped by bucket. Surface a BLOCK/EVAL item only if it is the real
    center of gravity.
 
 2. DEPTH / OUTLINE ($ARGUMENTS like "depth 2" or "outline 3"):
-   `node notes/plan/plan-graph.js --outline <n> notes/plan`
+   `node plan/plan-graph.js --outline <n> plan`
    -- the plan's shape to n levels (1 = bucket headers, 2 adds items).
 
 3. EXACT id (a number like 0550, or a slug like kill-flow):
    - WHEREVER the item lives -- a moved number no longer names its
      bucket, so scan them all (this is the moved-item resolver; the
      bucket.md breadcrumb is the human backstop):
-     `grep -rn '"id": "<id>"' --include=bucket.json notes/plan/`
+     `grep -rn '"id": "<id>"' --include=bucket.json plan/`
    - Open ONLY the hit: the node's "body" .md. Report TYPE, status
      and gist; edges come from /plan-edge-index-find when they matter.
    - No tree hit at all: the id may be spent and gone
-     (notes/plan/spent-ids.txt) -- hand off to /plan-blame, which
+     (plan/spent-ids.txt) -- hand off to /plan-blame, which
      reads its git history.
 
 4. VAGUE paraphrase: grep the keywords (plus obvious synonyms) over

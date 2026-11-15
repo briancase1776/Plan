@@ -1,6 +1,6 @@
-# notes/plan -- the live plan
+# plan -- the live plan
 
-This tree IS the plan. Full rules: notes/plan-tree.md (the only
+This tree IS the plan. Full rules: plan/plan-tree.md (the only
 authority on the tree's structure; this file points there and does not
 define).
 
@@ -30,7 +30,7 @@ TOOLING
     --blocked / --lineage / --liza (needs cycles) / --prose (edge
     candidates left in prose) / --check (drift + shape + edge-index
     audit), and the rest listed in its file header. Run it from the
-    repo root: node notes/plan/plan-graph.js --ready notes/plan
+    repo root: node plan/plan-graph.js --ready plan
   - html/plan.html + lib/plan-boot.js: the graph page (Cytoscape +
     fcose), opened by this repo's extension's toolbar button. Its data
     root is this directory.

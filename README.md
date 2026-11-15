@@ -7,17 +7,17 @@ with an EMPTY plan.
 
 ## What is here
 
-- `notes/plan/plan-graph.js` -- the reader and checker. Node only, no
-  packages. `node notes/plan/plan-graph.js --ready notes/plan` is what
+- `plan/plan-graph.js` -- the reader and checker. Node only, no
+  packages. `node plan/plan-graph.js --ready plan` is what
   can be worked now; `--check` audits the tree; there is no `--help`,
   so read its file header for the modes.
-- `notes/plan/` -- the plan itself: `plan.json` lists the buckets,
+- `plan/` -- the plan itself: `plan.json` lists the buckets,
   each bucket a directory with `bucket.json` (its nodes and their
   needs edges) and one `.md` per item; `edges.json` indexes every
   edge. It starts with one empty bucket, `bugs`.
 - `CLAUDE.md` -- the working rules for a Claude Code session here;
   `notes/anti-drew.md` -- why the indexes and the spec exist.
-- `notes/plan-tree.md` -- the spec: data model, bucket shapes, statuses
+- `plan/plan-tree.md` -- the spec: data model, bucket shapes, statuses
   and types, the welded rules. `docs/dear-liza/dear-liza.txt` -- why a
   needs cycle silently hides its items. `notes/skills.md` -- how the
   skills are written.

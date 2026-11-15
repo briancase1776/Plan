@@ -11,7 +11,7 @@ so no half of a change survives alone.
 
 Procedure:
 
-1. Read notes/plan-tree.md FIRST -- the data model, shape grammar, and
+1. Read plan/plan-tree.md FIRST -- the data model, shape grammar, and
    welded rules. Write ops cite the spec, they do not paraphrase it
    (skills.md). Locate the target via /plan-find if needed.
 
@@ -59,12 +59,12 @@ Procedure:
    where the number would send you (plan-tree.md welded rule).
 
 6. VERIFY before committing:
-   `node notes/plan/plan-graph.js --check notes/plan`
+   `node plan/plan-graph.js --check plan`
    must run clean -- drift, shapes, edge index, bad types, and Liza
    cycles. A new needs that closes a loop is a hole in the bucket
    (docs/dear-liza/): take it back to Brian for the axe instead of
    committing it.
 
-Scope guard: writes ONLY under notes/plan/ -- bucket.json, item
+Scope guard: writes ONLY under plan/ -- bucket.json, item
 .md, bucket.md, index.cld, edges.json. Never a computed field. Report, do not swallow, any check
 failure (skills.md: a skill failure is a bug).

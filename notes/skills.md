@@ -53,7 +53,7 @@ domain     .cld file                      format spec
 --------   ----------------------------   ------------------------------
 index      index.cld (per dir)            dir-index-format.txt (CLD-DirIndex)
 filename   <file>.cld (per source file)   file-index-format.txt (CLD-FileIndex)
-plan       notes/plan/ (bucket.json,      notes/plan-tree.md
+plan       plan/ (bucket.json,      plan/plan-tree.md
            edges.json, index.cld)
 ```
 
@@ -121,7 +121,7 @@ bugs-close    [S]   close a fixed bug's node and its issue together
 
 ### Plan buckets
 
-The plan (notes/plan/) owns the build order for skills, not this
+The plan (plan/) owns the build order for skills, not this
 file; a plan item for a skill points here.
 
 ---
@@ -180,11 +180,11 @@ Three parts, in order:
 1. Purpose -- 1-3 sentences: the problem this skill solves and why it
    exists, NOT a restatement of the description. Name the substrate it
    reads or writes (e.g. "the plan lives in ONE substrate: the tree at
-   notes/plan/").
+   plan/").
 2. Procedure -- numbered, imperative steps: the runbook. Branch on
    $ARGUMENTS (no-arg default / exact key / vague paraphrase, per Args).
    When the skill writes a formatted file, read that format spec FIRST
-   and do not reinvent it (plan-write-back reads notes/plan-tree.md
+   and do not reinvent it (plan-write-back reads plan/plan-tree.md
    before writing).
 3. Scope guard -- a closing line stating what the skill may and may NOT
    touch: read-only, or writes only to <path>. See the next rule.
@@ -204,7 +204,7 @@ operation:
   writing eight.
 - WRITE side (the write ops) and AUDIT -- CITE the spec. These
   PRODUCE or VERIFY the exact format, so a paraphrase drifts and emits
-  wrong bytes. plan-write-back reads notes/plan-tree.md before
+  wrong bytes. plan-write-back reads plan/plan-tree.md before
   writing; a mechanical audit engine encodes the format rules exactly
   (a paraphrase there produces false findings). Shorthand is not safe
   where format correctness is load-bearing.
@@ -219,7 +219,7 @@ Every skill declares its blast radius in the scope-guard line.
 - READ-ONLY skills (find, dupecheck, read, audit) say so: they print,
   they never mutate.
 - WRITING skills (the write ops) name the EXACT paths they may touch
-  and nothing else -- plan-write-back writes only under notes/plan/. A
+  and nothing else -- plan-write-back writes only under plan/. A
   skill that writes to a .cld keeps that index current in the SAME
   action (the same-commit index rule).
 - audit is deliberately READ-ONLY even when it finds drift: it reports

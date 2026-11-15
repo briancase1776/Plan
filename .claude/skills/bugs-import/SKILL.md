@@ -4,13 +4,13 @@ description: Fetch this repo's open GitHub issues and file each new one as a bug
 ---
 Purpose: bugs reported through GitHub issues otherwise sit outside the
 plan tree, where the anti-drew memory never sees them. This skill
-drains the issue list into the bugs bucket (notes/plan/bugs/,
+drains the issue list into the bugs bucket (plan/bugs/,
 shape slugged) so every defect lives as one kind of node, findable by
 /plan-find like the rest of the plan.
 
 Procedure:
 
-1. Read notes/plan-tree.md FIRST -- write ops cite the spec
+1. Read plan/plan-tree.md FIRST -- write ops cite the spec
    (skills.md): the slugged shape, the welded index rules, and
    stored-vs-computed status.
 
@@ -28,7 +28,7 @@ Procedure:
 
 3. DEDUP against what is already filed: every imported bug's .md
    opens with "GitHub issue #<n> -- <url>". Grep
-   notes/plan/bugs/*.md for "issue #<n>" and skip the hits --
+   plan/bugs/*.md for "issue #<n>" and skip the hits --
    including DONE/DEAD ones; a fixed bug does not come back. With an
    issue-number argument, fetch and import only that issue; no
    argument means every open issue that survives this dedup.
@@ -49,8 +49,8 @@ Procedure:
    - the bugs/index.cld entry.
 
 5. VERIFY, then commit:
-   `node notes/plan/plan-graph.js --check notes/plan` and
-   `scripts/compliance/check.sh notes/plan/bugs` both clean.
+   `node plan/plan-graph.js --check plan` and
+   `scripts/compliance/check.sh plan/bugs` both clean.
    The commit message names the issue numbers imported. Report the
    tally inline: filed / skipped as already-filed.
 
@@ -59,6 +59,6 @@ Procedure:
    still open (or the reverse), report the mismatch to Brian -- the
    status ruling is his, via /plan-write-back.
 
-Scope guard: writes ONLY under notes/plan/bugs/ (bucket.json,
+Scope guard: writes ONLY under plan/bugs/ (bucket.json,
 item .md, index.cld). Read-only against GitHub. Never a computed
 field. Report, do not swallow, any fetch or check failure.

@@ -1,22 +1,22 @@
 ---
 name: plan-dupecheck
-description: Check whether a plan item id -- a number or a slug -- is free before assigning it. Greps the plan tree's bucket.jsons and the list of numbers this plan has spent (notes/plan/spent-ids.txt -- history still spends numbers); reports FREE or TAKEN with the owning line. Given a bucket, proposes the next free number by that bucket's step. Ids are globally unique across the WHOLE tree, so this is the guard at the moment of naming.
+description: Check whether a plan item id -- a number or a slug -- is free before assigning it. Greps the plan tree's bucket.jsons and the list of numbers this plan has spent (plan/spent-ids.txt -- history still spends numbers); reports FREE or TAKEN with the owning line. Given a bucket, proposes the next free number by that bucket's step. Ids are globally unique across the WHOLE tree, so this is the guard at the moment of naming.
 ---
 Purpose: stop plan-id reuse. A number spent twice ends up meaning two
 unrelated items. The tree raises the stakes: node ids are globally
 unique across every bucket (a needs edge names its target by id alone
 -- plan-tree.md). A number once spent stays spent even after its node
-is gone: notes/plan/spent-ids.txt keeps every one, so history must
+is gone: plan/spent-ids.txt keeps every one, so history must
 clear an id too, or an old reference becomes ambiguous.
 
 Procedure:
 
 1. $ARGUMENTS is an ID -- a number (0540, 23150) or a slug (kill-flow):
    - Tree first:
-     `grep -rn '"id": "<id>"' --include=bucket.json notes/plan/`
+     `grep -rn '"id": "<id>"' --include=bucket.json plan/`
      (bucket.jsons are the authority; an edges.json hit only mirrors
      one).
-   - History: `grep -n "^<id> " notes/plan/spent-ids.txt` -- every
+   - History: `grep -n "^<id> " plan/spent-ids.txt` -- every
      number this plan has spent and retired, one line per use.
    - No hits anywhere -> report FREE.
    - Any hit -> report TAKEN and show the matching line(s) so Brian sees

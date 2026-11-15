@@ -2,7 +2,7 @@
 name: plan-edge-index-audit-full
 description: Full audit of the plan-tree edge index -- are any edges missing from edges.json, and does edges.json claim edges no node carries? Compares the WHOLE tree against the index, both directions. Reach for it on "is the edge index current", after bulk plan edits or a bucket restructure, and before any edge-audit sitting. No argument needed.
 ---
-Purpose: notes/plan/edges.json duplicates every needs/super edge
+Purpose: plan/edges.json duplicates every needs/super edge
 stored on the nodes so the page and a cold session read the whole
 dependency map from one file. A duplicate is only trustworthy audited:
 this is the whole-tree freshness sweep, against every bucket.json --
@@ -12,7 +12,7 @@ to the staged diff).
 Procedure:
 
 1. Run the engine:
-   `node notes/plan/plan-graph.js --check-edges notes/plan`.
+   `node plan/plan-graph.js --check-edges plan`.
    (The same comparison also runs inside --check, the whole-manifest
    drift audit; use --check when you want shapes and dangling edges
    swept in the same pass.)

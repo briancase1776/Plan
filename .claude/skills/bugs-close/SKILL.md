@@ -19,11 +19,11 @@ Procedure:
    closes.
 
 
-1. Read notes/plan-tree.md FIRST -- write ops cite the spec
+1. Read plan/plan-tree.md FIRST -- write ops cite the spec
    (skills.md): the DONE status + done field format
    ("YYYY-MM-DD commit:<hash>"), the welded index rules.
 
-2. RESOLVE the target in notes/plan/bugs/:
+2. RESOLVE the target in plan/bugs/:
    - issue number -> grep bugs/*.md for "issue #<n>" (bugs-import's
      provenance line).
    - slug -> match bucket.json node ids.
@@ -47,8 +47,8 @@ Procedure:
    - the bug's .md gains a terse FIXED footer: date, fix commit,
      one-line what-changed, the verify.
    - bugs/index.cld: the entry's gist gains the fixed marker.
-   - VERIFY node notes/plan/plan-graph.js --check notes/plan and
-     scripts/compliance/check.sh notes/plan/bugs both clean, then
+   - VERIFY node plan/plan-graph.js --check plan and
+     scripts/compliance/check.sh plan/bugs both clean, then
      commit; message names the slug and issue number.
 
 5. GITHUB SIDE (only if the node carries an issue provenance line --
@@ -65,13 +65,13 @@ Procedure:
    hand; never pretend it closed (skills.md: a skill failure is a
    bug).
 
-6. REPORT WHAT THE CLOSE UNBLOCKS: grep notes/plan/edges.json for
+6. REPORT WHAT THE CLOSE UNBLOCKS: grep plan/edges.json for
    needs edges targeting the closed slug and check each dependent's
    remaining gates (plan-graph.js --ready). "pop-cluster-edge-
    transfer closed -> 10100 has one gate left" is the payoff line;
    a close that frees the frontier should say so.
 
-Scope guard: writes ONLY under notes/plan/bugs/ (bucket.json, the
+Scope guard: writes ONLY under plan/bugs/ (bucket.json, the
 one item .md, index.cld), and the ONE named GitHub issue (close +
 comment -- never labels, edits, or other issues). Never a computed
 field. Report, do not swallow, any check or close failure.
