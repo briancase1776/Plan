@@ -54,7 +54,10 @@ Procedure:
 5. GITHUB SIDE (only if the node carries an issue provenance line --
    a hand-filed bug with no issue skips this half, say so): close
    the issue with a short comment naming the fix commit and the
-   one-line what-changed. Remote session: GitHub MCP tools
+   one-line what-changed. The issue is the one the provenance line's
+   URL names (github.com/<owner>/<repo>/issues/<n>) -- take owner,
+   repo and number from it, never from a name written into this
+   skill. Remote session: GitHub MCP tools
    (ToolSearch "issue", then the issue write tool, state closed,
    state_reason completed); local CLI: gh issue close <n> --comment.
    If the GitHub write FAILS, the plan side has already landed --

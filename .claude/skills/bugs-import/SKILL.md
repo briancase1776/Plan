@@ -14,9 +14,14 @@ Procedure:
    (skills.md): the slugged shape, the welded index rules, and
    stored-vs-computed status.
 
-2. FETCH the open issues for briancase1776/Plan. In a remote
-   session use the GitHub MCP tools (ToolSearch "issues", then
-   mcp__github__list_issues); at a local CLI,
+2. FETCH the open issues of the repository this plan lives in --
+   never a name written into this skill. Read it from the checkout:
+   in `git remote get-url origin` the last two parts are <owner> and
+   <repo> (drop a trailing .git; https, git@ or a proxy address
+   alike). In a remote session use the
+   GitHub MCP tools with that owner and repo (ToolSearch "issues",
+   then mcp__github__list_issues); at a local CLI, from inside the
+   checkout,
    `gh issue list --state open --json number,title,body,url`. If
    neither channel works, STOP and report the failure -- never fake
    an empty issue list (skills.md: a skill failure is a bug).
