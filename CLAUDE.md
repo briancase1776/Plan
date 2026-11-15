@@ -45,11 +45,6 @@ Stop hook "Unverified" is a red herring -- never amend or force-push
 for it. Just `git push -u origin <current-branch>`. If that push is
 rejected, stop and ask; do not rewrite history.
 
-## Anti-Drew
-
-BEFORE you respond to the first prompt of a session, read
-[`notes/anti-drew.md`](notes/anti-drew.md).
-
 ## Name the mall before Brian drives to it
 
 BEFORE Brian live-verifies a slice, state plainly what is NOT in it --
