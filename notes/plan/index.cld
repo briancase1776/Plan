@@ -1,9 +1,9 @@
 INDEX notes/plan/
 The live plan: one directory per bucket; plan.json lists them. Run `node plan-graph.js --ready` for what can be worked now, `--check` to audit.
 
-F README.md         Plan front door (as copied from DNA Tools)
+F README.md         Plan front door: data model, tooling, soft spots
 F plan.json         Root manifest: the bucket list
-F plan.md           Root prose: top-matter (as copied from DNA Tools)
+F plan.md           Root prose: the plan's top-matter (lifecycle, numbering, dates)
 F edges.json        Root edge index: every needs/super edge, kept in the same commit as its bucket.json
 F plan-graph.js     Reader/checker: ready, blocked, edges, suspect, prose, outline, --liza, --check
 F plan-graph.js.cld Symbol index for plan-graph.js

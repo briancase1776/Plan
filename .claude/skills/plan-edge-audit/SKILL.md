@@ -1,14 +1,12 @@
 ---
 name: plan-edge-audit
-description: Semantic audit of the plan tree's dependency edges -- is every needs a REAL dependency, not a soft cross-ref or provenance mis-encoded as blocking? Runs the full titled edge report plus the suspect and prose-mention pre-filters, then queues each edge for Brian's keep/drop/repoint ruling. Reach for it on "plan edge audit", "audit the edges", "are the needs real" -- the post-switch drain of the conservatively inferred edges (edge-audit item, decoupled from the 2026-07-19 switch by Brian's ruling). For edges.json freshness (mechanical) use plan-edge-index-audit-full instead. No argument needed.
+description: Semantic audit of the plan tree's dependency edges -- is every needs a REAL dependency, not a soft cross-ref or provenance mis-encoded as blocking? Runs the full titled edge report plus the suspect and prose-mention pre-filters, then queues each edge for Brian's keep/drop/repoint ruling. Reach for it on "plan edge audit", "audit the edges", "are the needs real". For edges.json freshness (mechanical) use plan-edge-index-audit-full instead. No argument needed.
 ---
 Purpose: ready/blocked/frontier are COMPUTED from the needs edges, and
-those edges were inferred by hand during the conversion -- a soft
-cross-ref mis-encoded as needs falsely blocks a buildable item; a real
-dependency left in prose falsely fronts a blocked one. This skill is
-the operator form of the tooling-and-governance plan item "edge-audit"
-(its method (a) coverage report + (b) suspect pre-filter, promoted to
-(d) a skill): mechanical output orders the queue, Brian's eye rules.
+those edges are written by hand -- a soft cross-ref mis-encoded as
+needs falsely blocks a buildable item; a real dependency left in prose
+falsely fronts a blocked one. Mechanical output orders the queue,
+Brian's eye rules.
 
 Procedure:
 
@@ -41,7 +39,7 @@ Procedure:
 
 4. MISSING edges cut the other way and no report finds them: while a
    bucket's edges are up for ruling, open that bucket's item .md prose
-   and let Brian's eye catch a hard dependency the conversion left
+   and let Brian's eye catch a hard dependency a writer left
    un-encoded. Log any he finds as ADD rulings.
 
 5. Applying rulings is the separate write step, welded per edit: the
@@ -49,9 +47,7 @@ Procedure:
    `--check-edges` and `--check` run clean before it lands.
 
 Notes:
-- Track progress against the edge-audit plan item
-  (tooling-and-governance/plan/proposed); this audit is its execution,
-  and the item is not DONE until every edge has been ruled once.
+- An audit is not finished until every edge has been ruled once.
 
 Scope guard: READ-ONLY. This skill reports and collects rulings; the
 edits happen in the follow-up write step, not inside the skill.

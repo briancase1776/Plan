@@ -65,11 +65,6 @@ Procedure:
    (docs/dear-liza/): take it back to Brian for the axe instead of
    committing it.
 
-7. The flat files (notes/the-plan.md / -done.md and their .clds) are
-   GONE -- retired at the 2026-07-19 switch, removed 2026-11-12. There
-   is no flat way to write anything; the old 0000 resume item's log
-   lives on in-flight/wip -> archive in the tree.
-
 Scope guard: writes ONLY under notes/plan/ -- bucket.json, item
 .md, bucket.md, index.cld, edges.json. Never a computed field. Report, do not swallow, any check
 failure (skills.md: a skill failure is a bug).

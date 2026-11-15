@@ -14,7 +14,7 @@ Procedure:
    (skills.md): the slugged shape, the welded index rules, and
    stored-vs-computed status.
 
-2. FETCH the open issues for briancase1776/DNATools. In a remote
+2. FETCH the open issues for briancase1776/Plan. In a remote
    session use the GitHub MCP tools (ToolSearch "issues", then
    mcp__github__list_issues); at a local CLI,
    `gh issue list --state open --json number,title,body,url`. If

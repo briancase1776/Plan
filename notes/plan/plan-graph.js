@@ -46,10 +46,10 @@ const nSTUBLINES = 3;
  * @brief Load one bucket dir and its sub-buckets into the item map.
  * @details A bucket.json may carry "nodes" (leaf data) and/or "subs" (an
  *   array of child sub-bucket dir names, relative to this dir). Most
- *   buckets are a single leaf with no subs; the named
- *   tooling-and-governance bucket is a tree of such dirs, so this recurses
- *   into each sub the way the filesystem nests. Recursion depth is the
- *   tree depth (3 today). Void: it fills oItems, it does not return.
+ *   buckets are a single leaf with no subs; a branch bucket (shapes
+ *   kinds, lanes, flight, slugged-tree) is a tree of such dirs, so this
+ *   recurses into each sub the way the filesystem nests. Recursion depth
+ *   is the tree depth. Void: it fills oItems, it does not return.
  * @param {string} osDir - Bucket directory holding bucket.json.
  * @param {object} oItems - The item map to fill, keyed by id.
  * @param {object[]} aBuckets - Bucket record list to fill (for the
@@ -643,9 +643,8 @@ function fPrintTypes(oItems, osFilter) {
  * @brief Print which buckets hold no spec node, and no ramblings node.
  * @details THE report the type field was added to make possible: until
  *   a node could BE a spec, nothing could ask whether one was MISSING,
- *   and 10000-layers sat specless while holding 22 nodes whose STATUS
- *   read SPEC (notes/plan/tooling-and-governance/plan/proposed/
- *   node-type-field.md).
+ *   and a bucket could sit specless while holding many nodes whose
+ *   STATUS read SPEC.
  *   Deliberately NOT part of --check, and this is the whole design
  *   note: on day one every bucket is specless, so wiring it into the
  *   gate would fail every commit and teach the next session to bypass
@@ -718,7 +717,7 @@ function fPrintSuspects(oItems) {
  *   real node (id / idm), pairs with both endpoints already terminal
  *   (pure history), pairs already edged either way, and any pair
  *   touching an implemented-lane node -- inventory entries DESCRIBE
- *   what shipped (their ids are ordinary words: wrap, summaries), they
+ *   what shipped (their ids are ordinary words, like wrap), they
  *   do not depend, and they alone put ~350 junk rows in the queue. A
  *   mention is the other id as a whole word ([0-9a-z-], regex-safe).
  *   One line per pair; ~350 strong, so drain it filtered (per node or
@@ -797,21 +796,26 @@ function fOsPathDate(osRootAbs, osAbs, oCache) {
 
 /***********************************************************************//**
  * @brief Every source file an item's prose names.
- * @details Only CODE directories count. An item naming a notes/ or
- *   Claude/ file is cross-referencing documentation, which moves for
- *   its own reasons and says nothing about whether this item's premise
- *   still holds. A ":NNN" line suffix is kept as a flag, not as part
- *   of the path: line numbers are the fastest-rotting reference in the
- *   tree (1137 pointed at tap.js:157 through an extraction that moved
- *   it), so they are worth calling out even when the file itself has
- *   not moved since the item was written.
+ * @details Only CODE directories count (kaCodeDirs). An item naming a
+ *   notes/ or docs/ file is cross-referencing documentation, which moves
+ *   for its own reasons and says nothing about whether this item's
+ *   premise still holds. A ":NNN" line suffix is kept as a flag, not as
+ *   part of the path: line numbers are the fastest-rotting reference in
+ *   the tree (one item pointed at a line through an extraction that
+ *   moved it), so they are worth calling out even when the file itself
+ *   has not moved since the item was written.
  * @param {string} osText - The item body .md contents.
  * @returns {object[]} [{ osPath, bLine }], de-duplicated by path.
  **************************************************************************/
+/** The directories of THIS project whose files an item's prose may
+ *  name as code (aCodeRefs). A project using the plan system sets its
+ *  own. */
+const kaCodeDirs = ['lib', 'scripts', 'html'];
+
 function aCodeRefs(osText) {
   const aResult = [];
   const oSeen   = {};
-  const oRe = new RegExp('\\b((?:Apps|lib|tests|scripts|palettes|html)'
+  const oRe = new RegExp('\\b((?:' + kaCodeDirs.join('|') + ')'
     + '\\/[A-Za-z0-9_.\\/-]*\\.(?:js|json|css|html|sh))(:[0-9]+)?', 'g');
   let aHit = oRe.exec(osText);
   while (aHit !== null) {
@@ -847,8 +851,8 @@ function aCodeRefs(osText) {
  *   rot the 2026-07-26 sitting hit -- the others are the smaller net:
  *   - STUB: a buildable item whose body is a line or two and which
  *     names no code at all. Nothing grounds it, so nothing can ever
- *     contradict it, and it reads buildable forever. 15300 and 15400
- *     were each ONE SENTENCE, written against a display and a palette
+ *     contradict it, and it reads buildable forever -- two such
+ *     items, each ONE SENTENCE, were found written against a display
  *     that turned out not to exist. Neither had a date problem;
  *     neither had ever been checked against anything. Age is printed
  *     because a stub that has sat for months is a worse bet than one

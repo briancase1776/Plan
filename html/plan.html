@@ -1,10 +1,10 @@
 <!-- html/plan.html
-     Plan dependency graph page for DNA Tools.
+     Plan dependency graph page.
      Opens buckets as super-nodes; tap a bucket to pop out its items,
      tap an item to read its prose. Runs on the vendored Cytoscape +
      fcose, reading the plan tree (plan.json -> bucket.json -> .md) that
      Claude hand-maintains. Standalone full-tab extension page, opened
-     from the popup's plan button.
+     by the extension's toolbar button (background.js).
      Copyright (c) 2026 Brian Case. All rights reserved.
      AI contributor: Claude (Anthropic)
      MIT License text omitted for brevity, See LICENCE.TXT
@@ -13,7 +13,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>DNA Tools -- Plan Graph</title>
+  <title>Plan Graph</title>
   <link rel="stylesheet" href="plan.css">
   <script src="../config/errors.config.js"></script>
   <script src="../lib/errors.js"></script>
@@ -25,7 +25,7 @@
 </head>
 <body>
   <header class="DnaToolsPlan-head">
-    <h1>DNA Tools plan <span>-- tap a bucket to pop out its items</span></h1>
+    <h1>Plan <span>-- tap a bucket to pop out its items</span></h1>
     <div class="DnaToolsPlan-legend" id="DnaToolsPlanLegend"></div>
   </header>
   <main class="DnaToolsPlan-main">

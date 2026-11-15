@@ -1,5 +1,6 @@
 INDEX notes/
 
+F anti-drew.md      Why the indexes, the spec and the skills exist: every session starts with no memory, so re-introduction must be a lookup
 F plan-tree.md      The plan tree spec: data model, shapes, statuses, types, welded rules
 F skills.md         How the skills are written
 F index.cld         This index

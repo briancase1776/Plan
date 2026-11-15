@@ -1,9 +1,10 @@
 INDEX ./
-The plan system, copied out of DNA Tools 2026-11-15 with an empty plan.
+The plan system: a plan kept as a tree of buckets and drawn as a graph; starts with an empty plan.
 
 F LICENSE           MIT licence (GitHub's, made with the repo)
-F LICENCE.TXT       MIT licence the file headers point to (from DNA Tools)
+F LICENCE.TXT       MIT licence the file headers point to
 F NOTICE            Third-party software bundled (Cytoscape, fcose, cose-base, layout-base)
+F CLAUDE.md         Working rules for a Claude Code session here: talk first, no popups, branches, compliance, indexes, the plan skills
 F README.md         Front door: what is here, how to load the page, what is known as copied
 F manifest.json     Chrome extension manifest (MV3): the plan graph page as an extension
 F background.js     Service worker: the toolbar button opens html/plan.html

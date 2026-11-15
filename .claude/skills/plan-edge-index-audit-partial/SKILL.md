@@ -6,8 +6,7 @@ Purpose: every needs/super edge lives on its node in bucket.json, and
 the root index notes/plan/edges.json duplicates it so readers see
 the whole edge set without walking the tree. That copy only works if it
 is updated in the SAME commit as the bucket.json edit -- this skill is
-the on-demand gate that catches the miss before the commit does, the
-plan-edge analog of /index-audit-partial.
+the on-demand gate that catches the miss before the commit does.
 
 Procedure:
 

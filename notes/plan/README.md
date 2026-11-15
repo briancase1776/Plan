@@ -1,14 +1,11 @@
-# notes/plan -- THE live plan (switched 2026-07-19)
+# notes/plan -- the live plan
 
-This tree IS the plan. The flat files (notes/the-plan.md,
-notes/the-plan-done.md) are RETIRED -- kept in place as history with a
-banner, never edited again. The tree was built bucket by bucket from
-them (spike 2026-07-12, conversion + done fold-in 2026-07-13, shape
-grammar 2026-07-16, moved-marker audit 2026-07-18, switch 2026-07-19);
-full rules in notes/plan-tree.md.
+This tree IS the plan. Full rules: notes/plan-tree.md (the only
+authority on the tree's structure; this file points there and does not
+define).
 
-DATA MODEL (design B)
-  - plan.json (root): the bucket list the runtime page loads first.
+DATA MODEL
+  - plan.json (root): the bucket list the page loads first.
   - edges.json (root): the EDGE INDEX -- every needs/super edge in one
     greppable file ({ type, node, target }, sorted by node), because
     the whole edge set is otherwise unknowable without walking every
@@ -20,32 +17,27 @@ DATA MODEL (design B)
   - <bucket>/bucket.json: the graph data for that cluster -- each node's
     id, title, status, and needs (the dependency EDGES; a needs entry is
     a directed edge), plus a "body" pointer to the bucket's own prose.
-    Every bucket declares a "shape" (numbered/kinds/lanes/flight/...)
-    validated by --check. Hand-maintained by Claude alongside the .cld
-    index, welded to the commit. Metadata lives HERE, once -- not
-    duplicated in the .md, so nothing drifts. Edges may cross buckets.
+    Every bucket declares a "shape" validated by --check. Hand-
+    maintained alongside the index.cld, welded to the commit. Metadata
+    lives HERE, once -- not duplicated in the .md, so nothing drifts.
+    Edges may cross buckets.
   - <bucket>/bucket.md: prose only -- the bucket header's OWN intro and
-    asides. Peer of an item .md; the channel that keeps bucket-header
-    doctrine from being lost at migration.
+    asides. Peer of an item .md.
   - <bucket>/<item>.md: prose only, loaded on click. No header block.
 
 TOOLING
   - plan-graph.js (node, this dir): reader/checker -- --ready /
     --blocked / --lineage / --liza (needs cycles) / --prose (edge
     candidates left in prose) / --check (drift + shape + edge-index
-    audit). Run it from this directory.
-  - html/plan.html + lib/plan-boot.js: the graph page (Cluster/fcose),
-    reached from the popup's "Open Plan Graph" button. DATA_ROOT points
-    here.
+    audit), and the rest listed in its file header. Run it from the
+    repo root: node notes/plan/plan-graph.js --ready notes/plan
+  - html/plan.html + lib/plan-boot.js: the graph page (Cytoscape +
+    fcose), opened by this repo's extension's toolbar button. Its data
+    root is this directory.
   - Skills: plan-find / plan-dupecheck / plan-blame / plan-write-back /
-    bugs-import and the plan-edge-* set all read (and write) this tree.
+    bugs-import / bugs-close and the plan-edge-* set all read (and
+    write) this tree.
 
-KNOWN SOFT SPOTS (post-switch state, not defects of the switch)
-  - The needs edges are conservatively inferred; the semantic audit
-    (every edge ruled keep/drop/repoint by Brian via /plan-edge-audit)
-    is IN PROGRESS -- edge-audit in tooling-and-governance/plan.
-    READY/BLOCKED are approximations until it drains.
-  - The --prose queue (~350 rows of edge candidates still in prose) is
-    unruled; drained per bucket alongside the audit sittings.
+KNOWN SOFT SPOTS
   - The page draws needs edges only; super (lineage) edges are CLI-only
-    (--lineage) for now.
+    (--lineage) for now (issue #4).

@@ -1,7 +1,7 @@
 INDEX .claude/skills/
 
 D plan-find/           Find a plan item from a paraphrase, id, or depth outline -- reads the tree (notes/plan), the live plan since the switch
-D plan-dupecheck/      Check a plan item id (number or slug) is free -- tree + retired-flat + summaries (history spends numbers)
+D plan-dupecheck/      Check a plan item id (number or slug) is free -- the tree + spent-ids.txt (history spends numbers)
 D plan-write-back/     Write a plan change into the tree with every welded edit in one commit
 D plan-edge-index-find/ Find edges to/from a plan node via the root edge index (edges.json)
 D plan-edge-index-audit-partial/ Audit the staged diff for stale plan-tree edge index entries
@@ -9,5 +9,5 @@ D plan-edge-index-audit-full/ Whole-tree audit of edges.json vs the edges on the
 D plan-edge-audit/     Semantic audit queue: is every needs a real dependency (Brian rules)
 D bugs-import/         Fetch GitHub issues and file new ones as bug nodes in the bugs bucket
 D bugs-close/          Close a fixed bug both places it lives -- node DONE with fix commit + GitHub issue closed, welded; gates on landed-fix evidence
-D plan-blame/          Trace a plan item's history across tree, flat plan, git, and summaries
+D plan-blame/          Trace a plan item's history across the tree and git
 F index.cld          This index
