@@ -1,0 +1,18 @@
+INDEX ./
+The plan system, copied out of DNA Tools 2026-11-15 with an empty plan.
+
+F LICENSE           MIT licence (GitHub's, made with the repo)
+F LICENCE.TXT       MIT licence the file headers point to (from DNA Tools)
+F NOTICE            Third-party software bundled (Cytoscape, fcose, cose-base, layout-base)
+F README.md         Front door: what is here, how to load the page, what is known as copied
+F manifest.json     Chrome extension manifest (MV3): the plan graph page as an extension
+F background.js     Service worker: the toolbar button opens html/plan.html
+F index.cld         This index
+D .claude/          Claude Code project files: the plan skills
+D config/           Error-framework config the page loads
+D docs/             Longer documents (dear-liza)
+D html/             The plan graph page
+D lib/              The page's controller, error framework and graph libraries
+D licence/          Full licence texts of the bundled libraries
+D notes/            The plan, its spec and the skills guide
+D scripts/          The compliance checker

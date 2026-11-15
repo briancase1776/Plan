@@ -1,0 +1,6 @@
+INDEX notes/plan/bugs/
+Named bucket: bugs (shape slugged). Empty at the start; the open bugs went to GitHub issues.
+
+F bucket.json       The bucket's nodes (none yet)
+F bucket.md         The bucket's prose
+F index.cld         This index

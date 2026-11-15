@@ -1,0 +1,29 @@
+FILE notes/plan/plan-graph.js
+F fWalkBucket      Load one bucket dir and its subs into the item map (recurses)
+F fBuild           Load every bucket manifest via plan.json into the item map
+F fIsSettled       Is an item terminal (DONE/DEAD) -- what clears a blocker
+F fOpenBlockers    An item's needs targets not yet settled
+F fIsReady         Buildable (READY/PARTIAL), no open blocker, and NOT type:ramblings -- a ramblings node is Brian's description, not work, so it has no done-condition and can never be "what's next"; excluded here rather than via its status, because a ramblings node's status is free to say anything and the frontier must not depend on which word a writer picked
+F fTreeEdges       Flatten every needs/super edge on the nodes into records
+F fLoadEdgeIndex   Read edges.json (the root edge index); null sentinel when missing
+F fEdgeKey         One comparable "type node target" key for an edge record
+F fCheckEdgeIndex  Audit edges.json vs the tree edges: MISSING / STALE / NOINDEX
+F fVisitCycle      DFS step of the needs-cycle hunt (three-color, recursive)
+F fReportCycles    Print each needs cycle ("a hole in the bucket, dear Liza"); count
+F fOutlineBucket   Print one bucket outline to a remaining depth (recurses)
+F fPrintOutline    Print the whole plan collapsed to n levels (--outline, 0610)
+F fCheck           Drift audit: dangling needs/super, missing status, DEAD advisory, BADTYPE (a type value outside aTYPES -- absent is legal and means untyped, an unknown value fails so a typo cannot silently mint a category), BADFIELD (the terminal record's field name contradicting the status -- done on a DEAD node, dead on a DONE one; ruled 2026-08-11 after 7 dead nodes were found claiming they were done. A terminal node carrying NO record is deliberately not flagged: 41 DONE are inventory with no commit to record, and a gate that always fails teaches bypass)
+F fShapeError      Why a bucket's contents contradict its declared shape
+F fCheckShapes     Shape audit over every bucket record
+F fPrintLineage    Print the super chains ("X continues Y")
+F fEndpointLine    One report line for an endpoint: id, status, title ("?" if dangling)
+F fPrintEdges      Print every edge with both endpoints' status and title (--edges)
+F fPrintTypes      Type census (--types [type]): groups every node by type, prints UNTYPED last as a COUNT only (384 nodes predate the field and listing them would bury the typed ones); with a type argument, lists that type's members
+F fPrintSpecless   Which leaf buckets hold no spec node and no ramblings node (--specless) -- THE report the type field exists to make possible, since until a node could BE a spec nothing could ask whether one was MISSING (10000-layers sat specless while holding 22 nodes whose STATUS read SPEC). Deliberately NOT in --check: on day one EVERY bucket is specless, so gating on it would fail every commit and teach the next session to bypass the gate. A question you ask, not a rule you break; wire it into --check once the buckets that want specs have them
+F fPrintSuspects   Print needs edges whose target is already terminal (--suspect)
+F fOsGitRoot        Absolute repo root via git rev-parse, so --mine can use absolute pathspecs; '' when not in a work tree
+F fOsPathDate       Last-commit ISO date for one path, memoised (the same source file is named by many items); '' when git knows nothing about it
+F aCodeRefs         Every CODE file an item's prose names (Apps|lib|tests|scripts|palettes|html + a known extension), de-duped, with a bLine flag for file.js:NNN refs; docs dirs deliberately excluded
+F fPrintMines       Plan-mine rot queue (--mine [id]): STUB (buildable item, <=nSTUBLINES of prose, names no code -- ungrounded, so nothing can contradict it; this is the class that caught 15300/15400), GONE (named file absent), MOVED (named file committed after the item's body, +Nd, LINE REF flagged). Third smell queue beside --suspect/--prose; a rotted item breaks NO rule so --check and --liza are both clean on it -- the Dear Liza silence one level up, graph right and PROSE wrong. Date signal is the weak half (this repo commits prose and code together, so they often tie); STUB is the body
+F fPrintProseRefs  Print prose-mention edge candidates: body .md names an id with no edge either direction (--prose [id]; skips marker pairs, both-terminal, implemented-lane)
+F fMain            CLI entry: ready/blocked/lineage/edges/suspect/prose/mine/check/check-edges/liza/outline/types/specless

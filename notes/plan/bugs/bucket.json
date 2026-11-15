@@ -1,0 +1,7 @@
+{
+ "bucket": "bugs",
+ "title": "Bugs",
+ "shape": "slugged",
+ "body": "bucket.md",
+ "nodes": []
+}

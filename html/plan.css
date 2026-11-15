@@ -1,0 +1,219 @@
+/* html/plan.css
+ * Full-tab layout for plan.html: the plan dependency graph page.
+ * Copyright (c) 2026 Brian Case. All rights reserved.
+ * AI contributor: Claude (Anthropic)
+ * MIT License text omitted for brevity, See LICENCE.TXT
+ */
+
+:root {
+  --DnaToolsPlan-bg: #f5f6f8;
+  --DnaToolsPlan-panel: #ffffff;
+  --DnaToolsPlan-ink: #1b2230;
+  --DnaToolsPlan-ink-dim: #5a6478;
+  --DnaToolsPlan-line: #dfe3ea;
+  --DnaToolsPlan-accent: #2f6fed;
+  --DnaToolsPlan-done: #1f8f4e;
+  --DnaToolsPlan-ready: #2f6fed;
+  --DnaToolsPlan-partial: #0d9488;
+  --DnaToolsPlan-block: #b7791f;
+  --DnaToolsPlan-eval: #7c53d6;
+  --DnaToolsPlan-spec: #b83287;
+  --DnaToolsPlan-defer: #6f7a3a;
+  --DnaToolsPlan-park: #7a8598;
+  --DnaToolsPlan-dead: #3f444c;
+  --DnaToolsPlan-missing: #d1352b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --DnaToolsPlan-bg: #0e131c;
+    --DnaToolsPlan-panel: #161d29;
+    --DnaToolsPlan-ink: #e6ebf3;
+    --DnaToolsPlan-ink-dim: #93a0b5;
+    --DnaToolsPlan-line: #263143;
+    --DnaToolsPlan-accent: #5b9bff;
+    --DnaToolsPlan-done: #3fb857;
+    --DnaToolsPlan-ready: #5b9bff;
+    --DnaToolsPlan-partial: #2dd4bf;
+    --DnaToolsPlan-block: #d9a53a;
+    --DnaToolsPlan-eval: #a884f0;
+    --DnaToolsPlan-spec: #e368b0;
+    --DnaToolsPlan-defer: #9aa85a;
+    --DnaToolsPlan-park: #949eb0;
+    --DnaToolsPlan-dead: #565c66;
+    --DnaToolsPlan-missing: #f0564b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--DnaToolsPlan-bg);
+  color: var(--DnaToolsPlan-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.DnaToolsPlan-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--DnaToolsPlan-line);
+  background: var(--DnaToolsPlan-panel);
+}
+
+.DnaToolsPlan-head h1 {
+  font-size: 15px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.DnaToolsPlan-head h1 span {
+  color: var(--DnaToolsPlan-ink-dim);
+  font-weight: 450;
+}
+
+.DnaToolsPlan-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--DnaToolsPlan-ink-dim);
+}
+
+.DnaToolsPlan-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.DnaToolsPlan-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* The legend's SECOND axis: colour says status, shape says type
+   (notes/plan-tree.md "Type -- what a node IS"). These are DOM
+   silhouettes of the cytoscape node shapes, not the shapes
+   themselves -- the legend is not on the canvas, so it can only
+   approximate them. They carry the ink colour rather than a status
+   colour on purpose: a shape swatch tinted like a status would read
+   as a status. */
+.DnaToolsPlan-legendbreak {
+  opacity: 0.7;
+  margin-left: 4px;
+}
+
+.DnaToolsPlan-legend .DnaToolsPlan-dot[class*="DnaToolsPlan-shape-"] {
+  background: var(--DnaToolsPlan-ink-dim);
+  border-radius: 0;
+}
+
+/* Every override below repeats the full three-class path on purpose.
+   The reset above is (0,3,0); a bare .DnaToolsPlan-shape-untyped is
+   (0,1,0) and LOSES, which is not theory -- it shipped that way for
+   one screenshot and drew the untyped swatch as a square when the
+   whole point of untyped is that it is the plain circle. Matching
+   specificity and coming later is what makes these win. */
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-untyped {
+  border-radius: 50%;
+}
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-spec {
+  border-radius: 3px;
+}
+/* A rounded barrel, NOT a polygon: the first cut drew ramblings as a
+   hexagon and it was indistinguishable from build's hexagon at 10px.
+   Two types that look alike defeat the axis. */
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-ramblings {
+  border-radius: 42% / 16%;
+}
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-build {
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-bug {
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-doc {
+  clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+}
+.DnaToolsPlan-legend .DnaToolsPlan-dot.DnaToolsPlan-shape-tooling {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* The type pill sits under the status pill in the item panel. It is
+   deliberately quieter than the status pill -- outlined, not filled --
+   so the two axes read as a hierarchy rather than competing for the
+   same attention. */
+.DnaToolsPlan-typepill {
+  background: transparent;
+  color: var(--DnaToolsPlan-ink-dim);
+  border: 1px solid var(--DnaToolsPlan-ink-dim);
+  margin-top: 6px;
+}
+
+.DnaToolsPlan-main {
+  position: relative;
+  min-height: 0;
+}
+
+.DnaToolsPlan-cy {
+  position: absolute;
+  inset: 0;
+}
+
+.DnaToolsPlan-panel {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: max-content;
+  min-width: 22rem;
+  max-width: min(94vw, 680px);
+  max-height: calc(100% - 28px);
+  overflow-y: auto;
+  background: var(--DnaToolsPlan-panel);
+  border: 1px solid var(--DnaToolsPlan-line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.DnaToolsPlan-panel.DnaToolsPlan-empty {
+  color: var(--DnaToolsPlan-ink-dim);
+}
+
+.DnaToolsPlan-pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.DnaToolsPlan-panel pre {
+  white-space: pre;
+  width: 80ch;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  margin: 12px 0 0;
+}

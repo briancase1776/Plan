@@ -1,0 +1,5 @@
+# notes/plan/spent-ids.txt
+#
+# Every item and bucket number this plan has used and retired, one line
+# per use, numbers only. A number once spent is never handed out again
+# (plan-dupecheck reads this file). Empty: this plan started 2026-11-15.

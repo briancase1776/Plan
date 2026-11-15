@@ -1,0 +1,6 @@
+INDEX notes/
+
+F plan-tree.md      The plan tree spec: data model, shapes, statuses, types, welded rules
+F skills.md         How the skills are written
+F index.cld         This index
+D plan/             The plan itself

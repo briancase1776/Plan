@@ -1,0 +1,106 @@
+There's a Hole in My Bucket (Dear Liza)
+Traditional (public domain); from the German "Wenn der Beltz em Loch
+hat" (c. 1700). Best-known recording: Harry Belafonte and Odetta, 1960.
+
+[The verses -- the full loop]
+
+There's a hole in my bucket, dear Liza, dear Liza,
+There's a hole in my bucket, dear Liza, a hole.
+
+Then fix it, dear Henry, dear Henry, dear Henry,
+Then fix it, dear Henry, dear Henry, fix it.
+
+With what shall I fix it, dear Liza? ... With straw.
+But the straw is too long, dear Liza ...
+Then cut it, dear Henry ...
+With what shall I cut it, dear Liza? ... With an axe.
+But the axe is too dull, dear Liza ...
+Then sharpen it, dear Henry ...
+On what shall I sharpen it, dear Liza? ... On a stone.
+But the stone is too dry, dear Liza ...
+Then wet it, dear Henry ...
+With what shall I wet it, dear Liza? ... With water.
+In what shall I fetch it, dear Liza? ... In a bucket.
+
+But there's a hole in my bucket, dear Liza, dear Liza,
+There's a hole in my bucket, dear Liza, a hole.
+
+------------------------------------------------------------------------
+THE GRAPH READING
+------------------------------------------------------------------------
+
+The song is a dependency graph, sung. Write it as needs edges:
+
+  fix-bucket  needs  straw
+  straw       needs  axe        (too long -- cut it)
+  axe         needs  stone      (too dull -- sharpen it)
+  stone       needs  water      (too dry -- wet it)
+  water       needs  bucket     (fetch it in something)
+  bucket      needs  fix-bucket
+
+Six edges, each one locally reasonable -- every single verse is a
+sensible answer to a sensible question. And the walk arrives back at
+the broken node. That is the whole anatomy of a circular dependency:
+no individual edge is wrong, the LOOP is wrong, and you cannot see the
+loop from inside any one verse.
+
+Third Rock (docs/third_rock/) is this song's sibling. Third Rock is
+the chain that cascades OUTWARD -- cause and effect ripping through a
+town, every link explicable, the pattern visible only from far enough
+away. Dear Liza is the chain that loops BACK -- cause and effect
+politely eating its own tail forever. Same lesson from opposite
+directions: individual steps that make perfect local sense, and a
+structure you only catch by tracing the whole thing.
+
+------------------------------------------------------------------------
+WHY IT MATTERS IN THIS PROJECT
+------------------------------------------------------------------------
+
+The plan tree (notes/plan/, spec notes/plan-tree.md) computes
+everything from needs edges: BLOCKED and the READY frontier are
+derived, never stored. That design kills stale markers -- and it has
+exactly one silent failure mode, and it is this song.
+
+Put a cycle in the needs graph and:
+
+  - nothing dangles, so the dangling-edge audit stays green;
+  - every status is set, so the status audit stays green;
+  - no member of the loop can ever settle, so no member ever reaches
+    the frontier -- they simply stop appearing in "what's next";
+  - and nobody is told, because no rule was broken. The items do not
+    fail; they just politely wait forever, verse after verse.
+
+Henry and Liza can sing all night. The bucket never gets fixed.
+
+THE CHECK: plan-graph.js --liza walks the needs graph and names any
+loop as the verse it is:
+
+  CYCLE  1 needs 2 needs 3 needs 1  -- a hole in the bucket, dear Liza
+
+It also runs inside --check (the drift audit), so a commit that closes
+a loop gets caught at the weld. Clean output is exactly what you would
+hope: "no hole in the bucket, dear Liza". super (lineage) edges are
+never walked -- provenance cannot block, so provenance cannot loop.
+
+THE AXE: detection is not resolution. A cycle is never fixed by
+staring at it or re-running the check; some edge in the loop has to be
+CUT, and which one is a judgment call, not a computation. Drop it
+(soft cross-ref that never was a dependency), demote it to super
+(lineage mis-encoded as blocking), or split an item so the two halves
+break the loop. That ruling is Brian's -- the same eye as
+/plan-edge-audit, which is where cycle findings land for a verdict.
+Claude brings the song sheet; Brian brings the axe.
+
+------------------------------------------------------------------------
+THE RECURSION (of course there is one)
+------------------------------------------------------------------------
+
+The memory apparatus this project runs on is itself bucket-shaped: the
+indexes index the indexes, the plan plans the plan tooling, anti-drew
+documents why anti-drew exists. Self-reference is fine -- it is how the
+system feeds itself. What separates a healthy loop from a Liza loop is
+an edge that settles: somewhere, some step actually finishes and clears
+a blocker, instead of handing the pail back around the circle. When a
+process in this repo starts to feel like the verses -- every step
+sensible, no step concluding -- stop singing and go find which edge to
+cut. Check the bucket first; it is usually the bucket.

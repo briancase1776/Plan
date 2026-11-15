@@ -1,0 +1,6 @@
+FILE config/errors.config.js
+K eLevel      Minimum log level: 'debug'|'info'|'warn'|'error'|'fatal'
+K bDev        Output mode: true = dev (pretty), false = prod (JSON)
+K bTimers     Enable timer output
+K aHandlers   Output handlers; empty = use console default
+K oConfig     Errors framework configuration object

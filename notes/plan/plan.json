@@ -1,0 +1,9 @@
+{
+  "buckets": [
+    {
+      "id": "bugs",
+      "title": "Bugs",
+      "dir": "bugs"
+    }
+  ]
+}

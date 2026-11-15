@@ -1,0 +1,4 @@
+INDEX scripts/compliance/
+
+F check.sh          Mechanical checker: 80 columns, ASCII, headers, whitespace
+F index.cld         This index

@@ -1,0 +1,38 @@
+<!-- html/plan.html
+     Plan dependency graph page for DNA Tools.
+     Opens buckets as super-nodes; tap a bucket to pop out its items,
+     tap an item to read its prose. Runs on the vendored Cytoscape +
+     fcose, reading the plan tree (plan.json -> bucket.json -> .md) that
+     Claude hand-maintains. Standalone full-tab extension page, opened
+     from the popup's plan button.
+     Copyright (c) 2026 Brian Case. All rights reserved.
+     AI contributor: Claude (Anthropic)
+     MIT License text omitted for brevity, See LICENCE.TXT
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>DNA Tools -- Plan Graph</title>
+  <link rel="stylesheet" href="plan.css">
+  <script src="../config/errors.config.js"></script>
+  <script src="../lib/errors.js"></script>
+  <script src="../lib/cytoscape.min.js"></script>
+  <script src="../lib/layout-base.js"></script>
+  <script src="../lib/cose-base.js"></script>
+  <script src="../lib/cytoscape-fcose.js"></script>
+  <script src="../lib/plan-boot.js" defer></script>
+</head>
+<body>
+  <header class="DnaToolsPlan-head">
+    <h1>DNA Tools plan <span>-- tap a bucket to pop out its items</span></h1>
+    <div class="DnaToolsPlan-legend" id="DnaToolsPlanLegend"></div>
+  </header>
+  <main class="DnaToolsPlan-main">
+    <div class="DnaToolsPlan-cy" id="DnaToolsPlanCy"></div>
+    <aside class="DnaToolsPlan-panel DnaToolsPlan-empty"
+           id="DnaToolsPlanPanel">Tap a bucket to open it, then an item
+      to read it.</aside>
+  </main>
+</body>
+</html>

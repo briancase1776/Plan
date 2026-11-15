@@ -1,0 +1,41 @@
+Plan
+Copyright (c) 2025-2026 Brian Case. All rights reserved.
+
+This product includes third-party software listed below.
+Each component retains its original copyright and license (MIT unless noted).
+
+-------------------------------------------------------------------------------
+
+Cytoscape.js
+Copyright (c) 2016-2022, The Cytoscape Consortium
+https://cytoscape.org
+MIT License
+Bundled as: lib/cytoscape.min.js
+Full license: licence/cytoscape.txt
+
+-------------------------------------------------------------------------------
+
+cytoscape-fcose
+iVis Research Group, Bilkent University
+https://github.com/iVis-at-Bilkent/cytoscape.js-fcose
+MIT License
+Bundled as: lib/cytoscape-fcose.js
+Full license: licence/cytoscape-fcose.txt
+
+-------------------------------------------------------------------------------
+
+cose-base
+iVis Research Group, Bilkent University
+https://github.com/iVis-at-Bilkent/cose-base
+MIT License
+Bundled as: lib/cose-base.js
+Full license: licence/cose-base.txt
+
+-------------------------------------------------------------------------------
+
+layout-base
+Copyright (c) i-Vis Research Group, Bilkent University, 2007 - present
+https://github.com/iVis-at-Bilkent/layout-base
+MIT License
+Bundled as: lib/layout-base.js
+Full license: licence/layout-base.txt

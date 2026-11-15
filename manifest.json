@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "name": "Plan",
+  "version": "0.1.0",
+  "description": "The plan graph page: a plan tree drawn as a graph.",
+  "action": { "default_title": "Open the plan graph" },
+  "background": { "service_worker": "background.js" }
+}

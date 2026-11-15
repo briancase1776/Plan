@@ -1,0 +1,11 @@
+INDEX lib/
+
+F plan-boot.js       Controller for the plan graph page: loads the plan, draws buckets and items
+F plan-boot.js.cld   Symbol index
+F errors.js          Error/log framework the page uses (err.*)
+F errors.js.cld     Symbol index
+F cytoscape.min.js   Cytoscape.js (vendored, MIT)
+F layout-base.js     layout-base (vendored, MIT)
+F cose-base.js       cose-base (vendored, MIT)
+F cytoscape-fcose.js cytoscape-fcose layout (vendored, MIT)
+F index.cld          This index

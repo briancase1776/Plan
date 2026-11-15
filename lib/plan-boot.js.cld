@@ -1,0 +1,29 @@
+FILE lib/plan-boot.js
+C PlanGraph           Loads and renders the plan dependency graph page
+F #oFetchJson         Fetch and parse a JSON file under the data root (null on fail)
+F #osFetchText        Fetch a text file under the data root ("" on fail)
+F #osCssVar           Read a CSS custom property off the document root
+F #vInit              Boot: load the bucket list, preload all statuses, build the graph, draw buckets
+F #vPreloadStatuses   Fetch every bucket.json (recursing subs) into the id->status map so blocker checks see the whole tree, not just opened buckets
+F #vOpenDeepLink      Auto-open the buckets named in the ?open= query
+F #vBuildCy           Create the Cytoscape instance and bind taps
+F #aStyle             The Cytoscape stylesheet
+F #osBucketLabel      Top-bucket label: id + title for a numbered bucket, title alone for a named one
+F #vRegisterBucket    Register a bucket + draw its super-node (top or a sub-bucket)
+F #vToggleBucket      Open a closed bucket or close an open one, show prose, lay out
+F #vShowBucket        Load a bucket's prose (bucket.md header/asides) into the panel
+F #vOpenBucket        Load a bucket's sub-buckets (subs) and items, wire edges, recolor
+F #vAddOwnEdge        Add the light contains edge from a bucket to a child (item or sub-bucket)
+F #vCloseBucket       Close a bucket: drop items + recurse into sub-buckets, tidy ghosts
+F #vCleanGhosts       Remove ghost nodes that no longer have any edge
+F #vAddGhosts         Add a ghost node for a needs target not yet loaded
+F #vAddEdges          Add any needs edge whose both endpoints are present
+F #bIsSettled         Is a needs target terminal (DONE/DEAD, either clears a blocker) -- answers from the boot-time status preload
+F #eDisplayStatus     Display status: raw, or BLOCKED when a need is unmet
+F #osColor            The colour for a status (axis 1: where a node is in its life)
+F #osShape            The cytoscape node shape for a TYPE (axis 2: what a node IS). Colour was already spent on status, so type gets shape and the two axes stay independently readable. Untyped is the ellipse -- what every node looked like before the field, so nothing changes appearance until deliberately typed. An unknown type falls back to that ellipse rather than throwing: --check is what rejects a bad value, and a viewer that blanks the graph over one typo is worse than one that draws it plainly
+F #vRecolor           Recompute every loaded item node's colour
+F #vLayout            Run the Cluster layout (fcose; cose fallback) -- Flow retired, specks bug
+F #vShowItem          Load an item's prose and render it in the side panel, with BOTH axes as pills -- status filled, type outlined beneath it. Never one alone: reporting status while hiding type is how a reader inherits the old one-field model (same reason plan-find reports both)
+F #vRenderLegend      Build the legend in TWO rows -- colour = status, shape = type -- because a legend showing only colour teaches the reader the graph has one axis. Shape row uses CSS clip-path/border-radius silhouettes, not the cytoscape shapes themselves (the legend is DOM, not canvas), so it approximates: the point is "these differ and here is which", not pixel parity
+F #vSetPanel          Set the side panel to a plain message

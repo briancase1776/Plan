@@ -1,0 +1,15 @@
+FILE lib/errors.js
+K kLevels            Numeric severity values for level comparison (debug=0 .. fatal=4)
+K kConsoleMethods    Maps severity level string to console output method name
+F fnConsoleHandler   Default console output handler; routes each level to matching console method
+K kBenignErrors      Message substrings of browser noise (ResizeObserver loop warnings) swallowed on arrival
+R (error-listener)   Capture-phase window error listener; marks kBenignErrors events handled so Chrome's extension error collector never records them
+C Errors             Internal error framework; manages deduplication, timers, V8 stack, formatting, dispatch
+F #getFrames         Captures structured V8 stack frames via prepareStackTrace override
+F #getContext        Builds context object (file, line, caller, flags, heap, ts) from stack frames
+F #format            Formats output string; human-readable in dev mode, JSON in prod mode
+F #dedupe            Checks and increments dedupe counter for a funcName|msg key
+F #output            Dispatches formatted output to all registered handlers
+F #handle            Core handler: filters by level, deduplicates, reports every 100th repeat
+F bind               Binds a function name and returns {debug,info,warn,error,throw,assert,time}
+K err                Proxy singleton providing err.funcName.level(msg) API

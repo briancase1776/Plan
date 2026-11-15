@@ -1,0 +1,4 @@
+INDEX scripts/
+
+F index.cld         This index
+D compliance/       The mechanical compliance checker
