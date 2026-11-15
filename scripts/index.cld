@@ -2,3 +2,4 @@ INDEX scripts/
 
 F index.cld         This index
 D compliance/       The mechanical compliance checker
+D plan-leak/        The plan status-leak scan: buildable nodes whose body says a decision is unruled (a prompt, never a gate)

@@ -1,0 +1,6 @@
+INDEX scripts/plan-leak/
+The plan status-leak scan: buildable plan nodes whose body says a decision is unruled, so their status may be lying. A prompt, never a gate. Came from DNA Tools 2026-11-15 without its dead ICC --channel scan.
+
+F check.js          The scan (node): READY/PARTIAL nodes whose body mentions a pending decision; type:ramblings exempt; exits 0 on any finding, 2 when the plan dir has no plan.json
+F check.js.cld      Symbol index for check.js
+F index.cld         This index

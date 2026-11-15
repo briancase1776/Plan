@@ -18,4 +18,4 @@ D lib/              The page's controller, error framework and graph libraries
 D licence/          Full licence texts of the bundled libraries
 D notes/           The skills guide (skills.md) and anti-drew.md
 D plan/            The plan itself and its reader/checker (plan-graph.js)
-D scripts/          The compliance checker
+D scripts/          The compliance checker and the plan status-leak scan

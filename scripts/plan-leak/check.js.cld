@@ -1,0 +1,7 @@
+FILE scripts/plan-leak/check.js
+C aBUILDABLE       READY, PARTIAL -- the statuses that count as work that can start (plan-graph.js aBUILDABLE)
+C oMARKER          The pending-decision words a body is searched for (unruled, Brian's call, Brian rules, he rules, not yet ruled, decision pending, awaiting a ruling, needs a ruling); case-insensitive and deliberately broad -- an over-fire is discarded by the reader, a miss is never recovered
+C osEXEMPT         PLAN-LEAK-EXEMPT: a body carrying it is skipped (the scan's own spec node would otherwise be its loudest hit); a marker travels with the file where an id would rot
+F aBucketFiles     Every bucket.json under a root, walked RECURSIVELY -- a top-level-only walk once reported a false all-clear
+F aStatusSuspects  READY/PARTIAL nodes (type:ramblings exempt) whose body has an oMARKER line: { osId, osStatus, osBucket, osPath, osLine }
+F vMain            CLI: [plan dir, default plan]; prints the scan as a prompt and exits 0 on any finding; exits 2 when there is no plan.json there, so a scan of nothing never reads as all clear

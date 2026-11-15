@@ -33,5 +33,9 @@ with an EMPTY plan.
 - `manifest.json`, `background.js` -- the page as a Chrome extension:
   load this directory unpacked (chrome://extensions, Developer mode,
   Load unpacked); its toolbar button opens the page.
+- `scripts/plan-leak/check.js` -- lists READY/PARTIAL items whose text
+  says a decision is still unruled, so their status may be lying.
+  `node <this checkout>/scripts/plan-leak/check.js` from a repo's
+  root. A prompt, never a gate.
 - `scripts/compliance/check.sh` -- the mechanical checker the skills
   run (80 columns, ASCII, file headers).
